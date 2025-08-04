@@ -1,0 +1,100 @@
+/* EQUATION STYLES */
+
+tr td.equationDividingLine {
+    padding: 0px;
+    margin: 2px;
+    background-color: black;
+    height: 3px;
+}
+
+tr td.equationDatum {
+    text-align: center;
+}
+
+tr td.leftBrace {
+    border-width: 2px;
+    border-style: solid none solid solid;
+}
+
+tr td.rightBrace {
+    border-width: 2px;
+    border-style: solid solid solid none;
+}
+
+.formulaDiv {
+    width: 100%;
+    margin: 2ch 0ch;
+    display: inline-flex;
+    flex-direction: row;
+    vertical-align: central;
+    justify-content: space-between;
+    background-color: inherit;
+}
+
+.formulaBox {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+
+    margin: 0ch;
+    padding: 1.5ch;
+    font-weight: bold;
+    box-shadow: 2px 3px 9px darkgray;
+    border-radius: 15px;
+}
+
+.formulaAside {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0px;
+    margin-left:2ch;
+    background-color: inherit;
+    color: darkgray;
+}
+
+.formulaAsideLine {
+    margin: 0ch;
+    padding: 0.5ch 0ch;
+    text-align: left;
+
+    font-weight: bold;
+    font-size: 12px;
+
+    background-color: inherit;
+}
+
+.formulaAsideDummy {
+    vertical-align: central;
+    margin: 0ch;
+    padding: 1.5ch;
+    text-align: left;
+
+    font-weight: bold;
+    font-size: 12px;
+
+    background-color: white;
+    color: white;
+}
+
+
+
+sup {
+    vertical-align: top;
+    position: relative;
+    top: 0px;
+    font-size: 0.66em;
+}
+
+sub {
+    display:inline-block;
+    margin:0ch;
+    padding:0ch;
+    position: relative;
+    bottom: -0.33ch;
+    font-size: 0.6em;
+    letter-spacing:0ch;
+    background:yellow;
+}
+
+/* end equation formatting styles */

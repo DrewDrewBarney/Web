@@ -1,0 +1,23 @@
+
+
+
+
+.button{
+    display:inline-block;
+    font-size: inherit;
+    font-weight: normal;
+    margin: 0px 0px;
+    padding: 0.75ch 2ch;
+    border: none;
+    background: rgb(0,125,255);
+
+    border-radius: 15px;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s ease-in-out;
+}
+
+.button:hover {
+    background:rgb(0,100,225);
+}

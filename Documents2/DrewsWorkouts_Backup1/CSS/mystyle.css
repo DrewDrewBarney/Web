@@ -1,0 +1,271 @@
+/* variables */
+
+:root { /* accessible everywhere */
+    --formBackgroundColor:rgb(230,230,220); 
+    --optionFormBackgroundColor:rgb(210,210,200); 
+    --calendarFormBackgroundColor:rgb(200,200,230); 
+    --workoutFormBackgroundColor:rgb(215,212,205); 
+    --workoutPhaseBackgroundColor:rgb(225,190,212); 
+    --workoutBlockBackgroundColor:--workoutFormBackgroundColor; 
+
+
+    --calendarTodayColor:rgb(255,160,160); 
+    --calendarSelectedColor:rgb(140,180,255); 
+
+}
+
+
+/* Animation Stuff */
+
+@keyframes fade_in {
+    from { 
+        opacity:0.8;
+    } 
+    to { 
+        opacity:1.0;
+    } 
+}
+
+
+/* main stuff */
+
+body{
+    font-family:Tahoma, Geneva, sans-serif;
+    margin:3ch;
+}
+
+form{
+    display: inline-block;
+    border-style: solid;
+    border-width: 0px;
+    border-color: black;
+    background-color: var(--formBackgroundColor);
+    border-radius: 10px;
+    margin: 20px;
+    padding: 10px;
+    box-shadow: 2px 3px 7px lightslategray;
+}
+
+table{
+    border-collapse: collapse;
+    border-style: none;
+}
+
+td{
+    border-style: none;
+    border-width: 1px;
+    border-color: black;
+    border-radius: 5px;
+    padding: 0.5ch;
+}
+
+input {
+    border-radius: 5px;
+    padding:0.25ch;
+}
+
+
+button{
+    border-radius: 5px;
+}
+
+select{
+    margin: 5px;
+    border-radius: 5px;
+}
+
+
+/* classes */
+
+.optionForm{
+    display: inline-block;
+    text-align: left;
+    border-width: 1px;
+    border-color:black;
+    border-radius: 10px;
+    background-color:  var(--optionFormBackgroundColor);
+    margin:0px;
+    padding: 10px;
+}
+
+
+.calendarForm{
+    border-width: 1px;
+    border-color:black;
+    border-radius: 10px;
+    background-color:  var(--calendarFormBackgroundColor);
+    display: inline-block;
+    margin:0px;
+    padding: 10px;
+}
+
+.calendarForm td{
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    width: 6ch;
+    height: 3ch;
+    text-align: center;
+    margin:5ch;
+}
+
+
+
+.today{
+    background-color: var(--calendarTodayColor);
+    border-width: 0px;
+}
+
+.selectedDay{
+    background-color: var(--calendarSelectedColor);  
+    border-width: 0px;
+
+}
+
+.otherMonth{
+    background-color:  var(--formBackgroundColor);
+    border-width: 0px;
+    color: darkgrey;
+}
+
+.otherDay{
+    background-color:  var(--formBackgroundColor);
+
+    border-width: 0px;
+}
+
+.phase_default{
+
+    border-width: 0px;
+    border-color:black;
+    border-style: solid;
+    border-radius: 10px;
+    background-color: lightgray;
+    padding: 10px;
+    margin: 5px 5px 15px 5px;
+    animation: fade_in 0.25s;
+}
+
+.phase_warm_up{
+    border-width: 0px;
+    border-color:black;
+    border-style: solid;
+    border-radius: 10px;
+    background: linear-gradient(lightblue,lightblue,lightgreen);
+    padding: 10px;
+    margin: 5px 5px 15px 5px;
+    animation: fade_in 0.25s;
+
+}
+.phase_cool_down{
+    border-width: 0px;
+    border-color:black;
+    border-style: solid;
+    border-radius: 10px;
+    background: linear-gradient(lightgreen, lightblue, lightblue);
+    padding: 10px;
+    margin: 5px 5px 15px 5px;
+    animation: fade_in 0.25s;
+}
+
+.phase_work{
+    border-width: 0px;
+    border-color:black;
+    border-style: solid;
+    border-radius: 10px;
+    background-color: coral;
+    padding: 10px;
+    margin: 5px 5px 15px 5px;
+    animation: fade_in 0.25s;
+
+}
+
+.phase_recover{
+    border-width: 0px;
+    border-color:black;
+    border-style: solid;
+    border-radius: 10px;
+    background-color: lightgreen;
+    padding: 10px;
+    margin: 5px 5px 15px 5px;
+    animation: fade_in 0.25s;
+}
+
+.block{
+    border-width: 0px;
+    border-color:black;
+    border-style: solid;
+    border-radius: 10px;
+    background-color:   var(--workoutBlockBackgroundColor);
+    margin: 5px 5px 20px 50px;
+    padding: 10px;
+    box-shadow: inset 1px 1px 10px lightslategray;
+
+}
+
+.blockatroot{
+    border-width: 0px;
+    border-color:black;
+    border-style: solid;
+    border-radius: 10px;
+    background-color:  var(--workoutBlockBackgroundColor);
+    margin:0px;
+    padding: 0px;
+}
+
+.error{
+    background-color: red;
+    box-shadow: 2px 3px 7px darkgrey;
+    color: white;
+    font-weight:bolder;
+    padding:2px;
+    border-radius: 10px;
+}
+
+.error_message{
+    float: right;
+    visibility: hidden;
+}
+
+
+
+.popup{
+    display: inline-block;
+    color:white;
+    background-color: red;
+    font-weight: bolder;
+    padding:5px;
+    border-radius: 5px;
+    clear:none;
+    overflow: visible;
+}
+
+.popup:hover{
+}
+
+.popup:hover .popup_text{
+    float: top;
+    display: inline-block;
+    max-width: 200px;
+    max-height: 1000px;
+    visibility: visible;
+    padding:5px;
+    margin:5px;
+    border-radius: 5px;
+    background-color: black;
+    color:white;
+}
+
+.popup .popup_text{
+    /*
+    float:right;
+    display: inline;
+    
+    max-width: 0px;
+    max-height: 0px;
+    */
+    visibility:hidden;
+}
+
+
+

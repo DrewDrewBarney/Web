@@ -1,0 +1,381 @@
+/* 
+
+////////////////////////       My CSS File     ////////////////////////////
+
+*/
+
+
+html{
+    background-image: linear-gradient(to right, black, lightgray);
+}
+
+body{
+    background-color: white;
+    margin: 0px;
+    font-family: Arial;
+    min-width: 750px;
+}
+
+header{
+    font-size: 250%;
+    margin-bottom: 10px;
+    padding: 10px;
+    color: black;
+    background-color: gray;
+    background-image: linear-gradient(to right, lightgray, white);
+    border-radius: 0px;
+    box-shadow: 0px 5px 10px rgb(200,200,200,256);
+
+}
+
+footer{
+    font-size: 100%;
+    padding: 1%;
+    color: white;
+    background-image: linear-gradient(to right, black, lightgray);
+    border-radius: 0px; 
+
+}
+
+.tableStyle1{
+    width: 33%;
+    border-collapse:collapse;
+    border: none;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5%;
+    margin-top: 5%;
+    text-align: center;
+}
+
+.tableStyle1 td{
+    border: 1px solid lightblue;
+}
+
+.buttonRight{
+    padding: 10px;
+    box-shadow: 3px 3px 9px darkgray;
+    border-radius: 15px;
+    float:right;
+    margin: 0px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+
+    color: black;
+    text-decoration: none;
+}
+
+.buttonRight:hover{
+    background-image: linear-gradient(to top, lightgray, white);   
+}
+
+.tableStyle2{
+    width: 100%;
+    border: none;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5%;
+    margin-top: 5%;
+    text-align: center;
+}
+
+.tableStyle3{
+    width: 50%;
+    border-collapse:collapse;
+    border: none;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:10%;
+    margin-bottom: 10%;
+    text-align: center;
+
+    box-shadow: 6px 6px 10px darkgray;
+}
+
+.tableStyle3 th{
+    background-color: lightgrey;
+}
+
+.tableStyle3 td{
+    border: 2px solid white;
+}
+
+th{
+    background-color: lightblue;
+}
+
+caption{
+    margin:10px;
+    font-weight: bold;
+    font-size: 125%;
+}
+
+figcaption{
+    text-align: center;
+    margin:0px;
+    font-weight: bold;
+    font-size:66%;
+}
+
+p{
+    line-height: 1.5;
+    margin-left: 5%;
+    margin-right: 0%;
+}
+
+h1,h2,h3,h4,h5,h6{
+    margin-left: 0%;
+    margin-right:0%;
+    color: rgba(120,110,80,256);
+    clear:both; /* important to prevent titles having images etc... floating right or left of them as reduces impact*/
+}
+
+
+
+
+/* grid item in a "table" */
+.gcon{
+    display: grid; 
+    grid-template-columns: repeat(5, 1fr); 
+    grid-gap:3px; 
+    padding:5px; 
+    background-color:#e5fdfc; 
+    align-items: center;
+}
+
+.git, .git2 {
+    margin:0px;
+    padding: 5px;
+    text-align:center;
+    vertical-align:central;
+    background-color: white;
+}
+
+.git2{
+    background-color: #e5fdfc;   
+}
+
+ul{
+    line-height: 2;
+}
+
+ol{
+    line-height: 2;
+    margin-left: 2%;
+}
+
+nav li{
+    font-size:125%;
+    font-weight: bold;
+    margin:0px;
+    padding:0px; 
+}
+
+nav li:hover{
+    background-image: linear-gradient(to top, lightgray, white);
+}  
+
+
+li a{
+    color: black;
+    text-decoration: none;
+    margin:0px 0px 0px 30px;
+    padding:0px;
+}
+
+
+
+a{
+    color:#9bb1c5 ;
+    text-decoration: none;
+}
+
+
+article{
+    margin-left: 10%;
+    margin-right:10%;
+    text-align: justify;
+    padding:1% 2%;
+    font-family: Arial;
+    font-size: 125%;
+    color: darkslategray;
+}
+
+aside{
+    float: right;
+    margin: 10px 0px 1ch 3ch;
+    padding: 10px;
+    line-height: 1.5;
+    text-align: left;
+
+    font-weight: bold;
+    font-size:75%;
+
+    border-radius: 10px;
+    box-shadow: 2px 3px 5px lightgray;
+
+    background-color:#beb7a2 ;
+    color:white;
+}
+
+
+.floatRight{
+    float: right;
+}
+
+.centerImage10{
+    display: block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    padding:  0px;
+    width: 10%;
+}
+
+.centerImage20{
+    display: block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    padding:  0px;
+    width: 20%;
+}
+
+.centerImage33{
+    display: block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    padding:  0px;
+    width: 33%;
+}
+
+
+.centerImage50{
+    display: block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    padding:  0px;
+    width: 50%;
+}
+.centerImage66{
+    display: block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    padding:  0px;
+    width: 66%;
+}
+
+.centerImage90{
+    display: block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    padding:  0%;
+    width: 90%;
+}
+
+.imageFloatRight{
+    float:right;
+    width: 200px;
+    margin: 10px 0px 20px 50px;
+}
+
+.formulaBox{
+    margin:0px;
+    padding:0px;
+    display: flex;
+    justify-content: center;
+    vertical-align: central;
+    clear:both;
+}
+
+.formula{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:0px;
+    padding:  1.5ch;
+    font-weight: bold;
+    box-shadow: 2px 3px 9px darkgray;
+    border-radius: 15px;
+
+}
+
+.formulaAside{
+    float: right;
+    margin: 0px 0px 0px 10px;
+    padding: 10px;
+    line-height: 1.5;
+    text-align: left;
+
+    font-weight: bold;
+    font-size:75%;
+
+    border-radius: 15px;
+    box-shadow: 2px 3px 9px darkgray;
+
+    background-color:darkgray;
+    color:white;
+}
+
+
+.centredBoldText{
+    display: block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    padding:  0px;
+    margin-top:0px;
+    font-weight: bold;
+}
+
+
+/* The animation code */
+@keyframes example {
+    from {width: 16px; transform: rotate(0deg); margin-right: 10%;}
+    25% {transform: rotate(5deg);}
+    50% {transform: rotate(0deg);}
+    75% {transform: rotate(-5deg);}
+    to  {width: 64px; transform: rotate(0deg); margin-right: 1%;}
+}
+
+/* The element to apply the animation to */
+.dazzle {
+    animation-name: example;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    width: 64px;
+    margin-right:1%;
+}
+
+
+sup { 
+    vertical-align: top; 
+    position: relative; 
+    top: -0.5ch; 
+    font-size: 66%
+}
+
+sub { 
+    vertical-align: bottom; 
+    position: relative; 
+    bottom: -0.5ch; 
+    font-size: 66%;
+}

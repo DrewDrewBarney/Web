@@ -1,0 +1,36 @@
+
+
+.BorgTable {
+    display:block;
+    
+    border-collapse: collapse;
+    border: none;
+    width:fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin: 8ch auto 10ch auto;
+   
+    text-align: center;
+    box-shadow: 6px 6px 10px darkgray;
+}
+
+.BorgTable caption{
+    padding:1ch;
+    background:linear-gradient(to right, lightgrey, white);
+    font-weight: bold;
+    font-size:2em;
+}
+
+.BorgTable tr th{
+    font-size:1.5em;
+    padding:1ch;
+}
+
+.BorgTable tr td{
+    font-size:1.3em;
+    padding:1ch;
+}
+
+.BorgTable tr td{
+    border-radius: 10px;
+}

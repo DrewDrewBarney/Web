@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+        <h1>
+            Nightmare setting up server after apple upgrade yet again!
+        </h1>
+
+        <pre>
+
+<h1>1. Find httpd.conf location</h1>
+    To start off with, find the location of the httpd.conf file as this is the very root of the setup
+
+        Use: <b>httpd -V</b>
+
+    The very last line shows the path to the httpd.conf file:
+
+        <b>-D SERVER_CONFIG_FILE="/usr/local/etc/httpd/httpd.conf"</b>
+        
+<h1>2. Ensure / edit httpd.conf to enable PHP</h1>
+    httpd.conf keeps being overwritten at each apple update (This is both rude and unprofessional)
+
+    You need to ensure that you add the path to a libphp.so library file.
+    
+    This is the one last used and installed by brew.
+    
+        <b>LoadModule php_module /usr/local/Cellar/php/8.4.2/lib/httpd/modules/libphp.so </b>
+       
+
+<h1>3. old Apple PHP kicking off and monopolising port 80 caused problems</h1>
+        
+    I had <b>(48)Address already in use: AH00072: make_sock: could not bind to address [::]:80</b>
+
+    I found this solution on the web
+        
+        <b>
+        /Users/drew>sudo launchctl unload -w /System/Library/LaunchDaemons/org.apache.httpd.plist
+        Password:
+        /Users/drew>sudo apachectl -k restart
+        </b>
+
+    Check that PHP is running.
+
+    Running phpinfo() will give you the used php.ini file
+
+
+<h1>4. Getting xdebug working</h1>     
+
+    you use the output of phpinfo() to get a custom build using xdebug wizard at their website https://xdebug.org/wizard
+    you then get a custom file to download and unzip
+    The follow the instructions
+    I think I had to use homebrew's pecl and also phpize
+    All really confusing
+
+    You no longer seem to need to have an xdebug entry in the php.ini file for it to work and the netbeans advice if it 
+    does not connect is not valid
+
+             
+<h1>5. Restarting Apache and so PHP</h1>
+
+    seems best to use apachectl restart (or -k restart if something using port 80, I presume -k kills the occupying process)
+    rather than brew services restart php or brew services restart apache2
+
+<h1>6. Get PHP MyAdmin (MySQL manager) working</h1>
+
+    Start mysql with mysql.server start
+
+    start mysql shell with mysql -u root (don't specify password until secured)
+
+    This is added to httpd.conf file to admit the phpmyadmin directory:
+
+    <b>
+    Alias /phpmyadmin /usr/local/share/phpmyadmin
+    <Directory /usr/local/share/phpmyadmin/>
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride All
+        <IfModule mod_authz_core.c>
+            Require all granted
+        </IfModule>
+        <IfModule !mod_authz_core.c>
+            Order allow,deny
+            Allow from all
+        </IfModule>
+    </Directory>
+
+    </b>
+
+  Blowfish secret string is '677548fb3b833677548fb3b834677548'
+
+
+    </body>
+</html>

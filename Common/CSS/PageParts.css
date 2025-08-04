@@ -1,0 +1,39 @@
+
+header{
+    padding:1ch;
+    font-weight: bold;
+    font-size: 2em;
+    background:linear-gradient(to right, white, rgb(0,100,230));
+}
+
+.mainBody{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* 👈 this aligns content to top */
+}
+
+
+.footer {
+    display:inline-block;
+    bottom:0vh;
+    width:100%;
+    height:20vh;
+    font-size: 100%;
+    background: linear-gradient(160deg, black, black, darkblue, black, black);
+}
+
+.footerLines{
+    display:block;
+    color:lightskyblue;
+    padding:0.5ch 5ch;
+}
+
+.footerLines:first-child{
+    color:white;
+    padding:5ch 0ch 2ch 5ch;
+}
+
+.footerLines:last-child{
+    color:goldenrod;
+    padding:2ch 5ch;
+}

@@ -1,0 +1,1501 @@
+/* 
+
+////////////////////////       My CSS File     ////////////////////////////
+
+*/
+
+
+
+.body {
+    width: inherit;
+    height: inherit;
+    font-family: Arial;
+    background:white;
+}
+
+
+
+.pageTitle {
+    padding:1ch;
+    font-size: 30px;
+    font-weight: bold;
+    color: black;
+    background-color: gray;
+    background-image: linear-gradient(to right, lightgray, white);
+    border-radius: 0px;
+    box-shadow: 0px 5px 10px rgba(200, 200, 200, 256);
+}
+
+
+
+.footer {
+    width:100%;
+    height:100vh;
+    font-size: 100%;
+    background: linear-gradient(160deg, black, black, darkblue, black, black);
+}
+
+
+
+.footer p:nth-child(2){
+    color:lightgray;
+}
+
+
+.footer a{
+    color:darkkhaki !important;
+    text-decoration: none;
+}
+
+
+
+
+
+.zoomOnHover:hover{
+    font-size:1.5em;
+}
+
+.zoomOnHover{
+    transition: all 0.3s ease-in-out;
+}
+
+
+
+
+.button {
+    font-size: 16px;
+    margin: 2ch 2ch;
+    padding: 2ch 3ch;
+    border: none;
+    background: #084cdf;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s ease-in-out;
+}
+
+.buttonRight {
+    float: right;
+    font-size: inherit;
+    font-weight: normal;
+    margin: 5px 0px 5px 15px;
+    padding: 1ch 2ch;
+    border: none;
+    background: rgb(0,125,255);
+
+    border-radius: 15px;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s ease-in-out;
+}
+
+.buttonRight:hover {
+    background:rgb(0,100,225);
+}
+
+
+
+form.verticalInputForm {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+button {
+    /*font-size:120%;*/
+    font-size: 16px;
+    margin: 6px 6px;
+    border: none;
+    background: #084cdf;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #fff;
+
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+    box-shadow:2px 2px 3px gray;
+}
+
+button:hover {
+    background: #0d45a5;
+}
+
+button:active{
+    transform: scale(0.95, 0.9);
+    box-shadow: none;
+}
+
+/*
+button{
+    font-size: 100%;
+    border: none;
+    margin: 15px;
+    padding:8px 15px;
+    color: black;
+    text-decoration: none;
+    box-shadow: 3px 3px 9px darkgray;
+    border-radius: 15px;
+    background-image: linear-gradient(to bottom, lightgray, white, white, darkgray);
+}
+
+button:hover{
+    background-image: linear-gradient(to bottom, darkgray, white, white, lightgray);
+}
+*/
+
+/*
+label.button{
+    font-size: 100%;
+    border: none;
+    margin: 15px;
+    padding:8px 15px;
+    color: black;
+    text-decoration: none;
+    box-shadow: 3px 3px 9px darkgray;
+    border-radius: 15px;
+    background-image: linear-gradient(to bottom, lightgray, white, white, darkgray);
+}
+
+label.button:hover{
+    background-image: linear-gradient(to bottom, darkgray, white, white, lightgray);
+}
+*/
+
+
+
+
+
+
+.MarathonPlanTable{
+    margin-left: auto;
+    margin-right:auto;
+    padding:10px;
+    border-collapse: separate;
+    border-spacing: 0ch;
+    border-radius: 15px;
+    font-size:100%;
+    font-weight: bold;
+    white-space: nowrap;
+    background-color: lightgray;
+    box-shadow:5px 5px 5px gray;
+}
+
+.MarathonPlanTable tr{
+    transition:all 0.5s ease-in-out 0.25s;
+}
+
+.MarathonPlanTable tr:hover{
+
+}
+
+.numberOfUsers{
+    display:block;
+    width:fit-content;
+    opacity: 0.3;
+    background-color:lightskyblue;
+    padding:1ch;
+    border-radius: 1ch;
+}
+
+.MarathonPlanTable th{
+    margin:0ch;
+    padding:1ch;
+    background-color: orchid;
+
+}
+
+.MarathonPlanTable td{
+    margin:0ch;
+    padding:1ch;
+    width:10ch;
+
+    /*background-color:red;*/
+}
+
+.LoggedIn{
+    position:absolute;
+    top:0vw;
+    right:0vw;
+    width:fit-content;
+    padding:1ch;
+    background-color:yellow;
+    color:black;
+    border-radius: 1ch;
+}
+
+
+.MarathonPlanSubTable{
+    border-collapse: separate;
+    border-radius: 15px;
+    font-size:100%;
+    font-weight: bold;
+    white-space: nowrap;
+
+    box-shadow:5px 5px 5px gray;
+    overflow: visible;
+}
+
+.MarathonPlanSubTable tr{
+
+}
+
+.MarathonPlanSubTable td{
+
+}
+
+.MarathonPlanSubTable tr td:first-child{
+    font-family: monospace;
+}
+
+.MarathonPlanSubTable td:nth-child(3){
+    transition:all 0.5s ease-in-out 0.25s;
+}
+
+.MarathonPlanSubTable td:nth-child(3):hover{
+}
+
+
+.OrderedList{
+
+}
+
+li{
+    margin:10px;
+    line-height: 1.333;
+}
+
+
+
+
+/* EQUATION STYLES */
+
+tr td.equationDividingLine {
+    padding: 0px;
+    margin: 2px;
+    background-color: black;
+    height: 3px;
+}
+
+tr td.equationDatum {
+    text-align: center;
+}
+
+tr td.leftBrace {
+    border-width: 2px;
+    border-style: solid none solid solid;
+}
+
+tr td.rightBrace {
+    border-width: 2px;
+    border-style: solid solid solid none;
+}
+
+.formulaDiv {
+    width: 100%;
+    margin: 2ch 0ch;
+    display: inline-flex;
+    flex-direction: row;
+    vertical-align: central;
+    justify-content: space-between;
+    background-color: inherit;
+}
+
+.formulaBox {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+
+    margin: 0ch;
+    padding: 1.5ch;
+    font-weight: bold;
+    box-shadow: 2px 3px 9px darkgray;
+    border-radius: 15px;
+}
+
+.formulaAside {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0px;
+    margin-left:2ch;
+    background-color: inherit;
+    color: darkgray;
+}
+
+.formulaAsideLine {
+    margin: 0ch;
+    padding: 0.5ch 0ch;
+    text-align: left;
+
+    font-weight: bold;
+    font-size: 12px;
+
+    background-color: inherit;
+}
+
+.formulaAsideDummy {
+    vertical-align: central;
+    margin: 0ch;
+    padding: 1.5ch;
+    text-align: left;
+
+    font-weight: bold;
+    font-size: 12px;
+
+    background-color: white;
+    color: white;
+}
+
+/* end equation formatting styles */
+
+
+.loginTable{
+    padding:30px;
+    border-width:0px;
+    border-style:solid;
+    border-color:lightgoldenrodyellow;
+    border-radius:20px !important;
+    box-shadow: 5px 5px 10px 10px rgba(0,0,0,0.1);
+    background-color: white;
+}
+
+.loginPage{
+    background-image: radial-gradient(circle at left 90% top 15% , white 1%, yellow 1.5%, orange 2%, rgb(90,120,235) 8%, rgb(210,240,255));
+}
+
+.logoutPage{
+    background-image: radial-gradient(circle at left 90% top 30% , yellow 1%, orange 1.5%, red 2%, rgb(90,120,235) 8%, rgb(210,240,255));
+}
+
+.tableHeaders{
+    color: white;
+    background-color: lightskyblue;
+}
+
+.tableStyle1 {
+    width: 33%;
+    border-collapse: collapse;
+    border: none;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5%;
+    margin-top: 5%;
+    text-align: center;
+}
+
+.tableStyle1 td {
+    border: 1px solid lightblue;
+}
+
+.tableStyle2 {
+    width: 100%;
+    border: none;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5%;
+    margin-top: 5%;
+    text-align: center;
+}
+
+table.tableStyle3 {
+    width:70%;
+    border-collapse: collapse;
+    border: none;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    text-align: center;
+    box-shadow: 6px 6px 10px darkgray;
+}
+
+table.tableStyle4 {
+    width: 100%;
+    border-collapse: collapse;
+    border: none;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1ch;
+    margin-bottom: 1ch;
+    text-align: center;
+    box-shadow: 6px 6px 10px darkgray;
+    column-width:fit-content;
+}
+table.tableStyle4 tr th{
+    padding: 0ch 0ch;
+    color: white;
+    background-color: #996600;
+}
+table.tableStyle4 tr td {
+    padding: 0.5ch;
+    border: 0px solid lightgrey;
+}
+
+
+table.tableStyle3 tr th{
+    padding: 1ch 1ch;
+    border: 4px solid white;
+}
+
+table.tableStyle3 tr td{
+    padding: 1ch 1ch;
+    border: 4px solid white;
+}
+
+
+.clubTrackSession{
+    position:relative;
+    display:flex;
+    align-items: flex-end;
+    margin:2ch 0ch 2ch 0ch;
+    height:30ch;
+    width: 60ch;
+    background-color: lavender;
+    box-shadow: 5px 5px 5px black;
+    margin-left:auto;
+    margin-right:auto;
+    border-radius: 10px;
+}
+
+.clubTrackSessionPhase{
+    display:block;
+    height:50%;
+    width:100%;
+    margin: 0px 2px;
+    border-radius: 10px 10px 0px 0px;
+    font-size: 75%;
+    text-align: center;
+    padding: 1ch 0ch 0ch 0ch;
+}
+
+.clubTrackSessionPhase:first-child{
+    margin: 0px 4px;
+}
+
+.clubTrackSessionPhase:last-child{
+    margin: 0px 4px;
+}
+
+.tableStyleTrackIntervalsForm{
+    border-spacing: 2ch 0ch;
+    padding:1ch 1ch;
+    border-radius:15px;
+    box-shadow: 5px 5px 15px gray;
+}
+
+.tableStyleTrackIntervalsForm tr th{
+    margin: 0ch 5ch; /*margin does not work in table for this element*/
+    padding:1ch 3ch;
+    border-radius:15px;
+    background-color:lightskyblue;
+
+    box-shadow: 5px 5px 5px lightgray;
+}
+
+.tableStyleTrackIntervalsForm tr td{
+    margin: 0ch 5ch; /*margin does not work in table for this element*/
+    padding:1ch 3ch;
+    border-radius:15px;
+
+    text-align: center;
+}
+
+
+
+.tableStyleTrackIntervals {
+    padding:0ch;
+    width:98%;
+    margin:1%;
+    border-width:0px;
+    border-collapse: collapse;
+    font-size:1.333em;
+    text-align: center;
+    box-shadow: 6px 6px 10px darkgray;
+}
+
+
+
+.tableStyleTrackIntervals tr:first-child{
+    background-image: linear-gradient(to right, lightgray, white);
+}
+
+.tableStyleTrackIntervals tr th{
+    padding: 1ch;
+    width: fit-content;
+}
+
+.tableStyleTrackIntervals tr th:first-child{
+}
+
+.tableStyleTrackIntervals tr th:not(:first-child){
+    width: auto;
+}
+
+
+.tableStyleTrackIntervals tr td{
+    padding:1ch;
+}
+
+
+
+.tableStyleRacePowers {
+    font-weight: bold;
+    width:50%;
+    margin:5ch 0ch 5ch 0ch;
+    margin-left:auto;
+    margin-right:auto;
+    border-width:0px;
+    border-collapse: collapse;
+    font-size:1.1em;
+    text-align: center;
+    box-shadow: 6px 6px 10px darkgray;
+}
+
+.tableStyleRacePowers tr:first-child {
+    background-image: linear-gradient(to right, moccasin, white) !important;
+}
+
+.tableStyleRacePowers tr:nth-child(odd){
+    background-image: linear-gradient(to right, lightgray, white);
+}
+
+.tableStyleRacePowers tr:first-child th{
+    padding:1ch;
+}
+
+
+
+.tableStyleRacePowers tr td{
+    padding:1ch;
+}
+
+/* the interval paces table */
+
+table.intervalPaces {
+    color: black;
+    background-color: white;
+    width: 50%;
+    border-collapse: separate;
+    border: none;
+    margin: 10% auto 10% auto;
+
+    text-align: center;
+
+    box-shadow: 6px 6px 10px darkgray;
+}
+
+table.intervalPaces tr th {
+    color: white;
+    padding: 10px;
+    background-color: black;
+}
+
+table.intervalPaces tr {
+    color: white;
+    background-color: green;
+}
+
+table.intervalPaces tr td {
+    font-size: 30px;
+    padding: 10px;
+    color: black;
+    background-color: beige;
+}
+
+
+
+.SannoverMasterTable{
+
+    border-collapse: collapse;
+    width:100%;
+    margin:0ch;
+    padding:0ch;
+    table-layout: fixed;
+    background-color:white;
+    color:black;
+    font-size:100%;
+    text-align: start;
+
+}
+
+.SannoverMasterTable tr{
+    page-break-inside: avoid;
+}
+
+
+.SannoverMasterTable td:first-child{
+    width:5%;
+    vertical-align: top;
+    font-weight:bold;
+    font-size:1.1em;
+    margin:1ch;
+}
+
+
+.SannoverTable{
+
+    border-collapse: collapse;
+    width:100%;
+    margin:0ch;
+    padding:0ch;
+    table-layout: fixed;
+    background-color:white;
+    color:black;
+    font-size:100%;
+    text-align: start;
+}
+
+.SannoverTable tr{
+    page-break-inside: avoid;
+}
+
+
+.SannoverTable td:first-child{
+    width:5%;
+    vertical-align: top;
+    font-weight:bold;
+    font-size:1.1em;
+    margin:1ch;
+}
+.SannoverSubTable{
+    border-collapse: collapse;
+    table-layout: fixed;
+    width:100%;
+    border: solid 0px black;
+    margin: 0ch 0ch 2ch 0ch;
+    font-size:100%;
+    text-align: start;
+}
+
+.SannoverSubTable  tr:nth-child(even){
+    background-color: rgb(250,240,250);
+}
+
+.SannoverSubTable  tr:nth-child(1){
+    background-image:linear-gradient(to right, lightgray, white);
+}
+
+.SannoverSubTable tr{
+    width:auto;
+    border-collapse: collapse;
+    border: solid 1px black;
+    padding:2ch;
+}
+
+.SannoverSubTable tr:first-child{
+    font-weight: bold;
+}
+
+.SannoverSubTable tr:not(:first-child) td:last-child{
+    /*font-size:75%;
+    background-color: lemonchiffon;*/
+}
+
+table.SannoverSubTable tr td:first-child{
+    width:7%;
+    font-size:100%;
+    font-weight:bold;
+}
+
+table.SannoverSubTable td:nth-child(2){
+    width:25%;
+    font-size:100%;
+}
+
+table.SannoverSubTable td{
+    width:10%;
+    padding:0.5ch;
+    font-weight:normal;
+}
+
+
+caption {
+    margin: 10px;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+figcaption {
+    text-align: center;
+    margin: 0px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+p {
+    line-height: 1.5;
+    margin:0ch 0ch 1ch 0ch;
+}
+
+
+
+.GarminLinkImage{
+    height: 200px;
+}
+
+
+/* grid item in a "table" */
+.gcon {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 3px;
+    padding: 5px;
+    background-color: #e5fdfc;
+    align-items: center;
+}
+
+.git,
+.git2 {
+    margin: 0px;
+    padding: 5px;
+    text-align: center;
+    vertical-align: central;
+    background-color: white;
+}
+
+.git2 {
+    background-color: #e5fdfc;
+}
+
+
+
+aside {
+    float: right;
+    margin: 10px 0px 1ch 3ch;
+    padding: 10px;
+    line-height: 1.5;
+    text-align: left;
+
+    font-weight: bold;
+    font-size: 12px;
+
+    border-radius: 10px;
+    box-shadow: 2px 3px 5px lightgray;
+
+    background-color: #beb7a2;
+    color: white;
+}
+
+.floatRight {
+    float: right;
+}
+
+.workoutCard{
+    box-shadow: 3px 3px 10px lightgrey;
+    padding:1% 2%;
+    margin: 3% 0%;
+}
+
+.selectedWorkoutCard{
+    padding:1% 2%;
+    margin: 3% 0%;
+    background-color: rgb(255,240,200);
+    box-shadow: 5px 5px 15px lightgray;
+
+}
+
+.center{
+    display:block;
+    width:fit-content;
+    margin-left:auto;
+    margin-right:auto;
+    text-align: center;
+}
+
+table.center{
+    display: table;
+    width: 50%;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.centerText{
+    text-align: center;
+    vertical-align: middle;
+}
+
+
+.centredBoldText {
+    display: block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    padding: 0px;
+    margin-top: 0px;
+    font-weight: bold;
+}
+
+
+/* A N I M A T I O N  C O D E */
+
+@keyframes wavyBackground{
+    from{
+        background: repeating-linear-gradient(50deg, rgba(255,255,255,0.33)  0%, lightskyblue 50%, rgba(255,255,255,0.33) 100%);
+        transform: skew(0deg,1deg) translate(0px, 5px);
+        box-shadow: 5px 5px 30px gray;
+    }
+    10%{
+        background: repeating-linear-gradient(55deg, lightskyblue -40%, rgba(255,255,255,0.33)  10% , lightskyblue 60%, rgba(255,255,255,0.33) 110%);
+    }
+    20%{
+        background: repeating-linear-gradient(60deg, lightskyblue -30%, rgba(255,255,255,0.33)  20% , lightskyblue 70%, rgba(255,255,255,0.33) 120%);
+    }
+    30%{
+        background: repeating-linear-gradient(65deg, lightskyblue -20%, rgba(255,255,255,0.33)  30% , lightskyblue 80%, rgba(255,255,255,0.33) 130%);
+    }
+    40%{
+        background: repeating-linear-gradient(70deg, lightskyblue -10%, rgba(255,255,255,0.33)  40% , lightskyblue 90%, rgba(255,255,255,0.33) 140%);
+    }
+    50%{
+        background: repeating-linear-gradient(75deg, lightskyblue 0%, rgba(255,255,255,0.33)  50% , lightskyblue 100%);
+        transform: skew(0deg,0deg) translate(0px, 0px);
+        box-shadow: 0px 0px 10px gray;
+    }
+
+    60%{
+        background: repeating-linear-gradient(70deg, rgba(255,255,255,0.33) -40%, lightskyblue  10% , rgba(255,255,255,0.33) 60%, lightskyblue 110%);
+    }
+    70%{
+        background: repeating-linear-gradient(65deg, rgba(255,255,255,0.33) -30%, lightskyblue  20% , rgba(255,255,255,0.33) 70%, lightskyblue 120%);
+    }
+    80%{
+        background: repeating-linear-gradient(60deg, rgba(255,255,255,0.33) -20%, lightskyblue  30% , rgba(255,255,255,0.33) 80%, lightskyblue 130%);
+    }
+    90%{
+        background: repeating-linear-gradient(55deg, rgba(255,255,255,0.33) -10%, lightskyblue  40% , rgba(255,255,255,0.33) 90%, lightskyblue 140%);
+    }
+
+
+    to{
+        background: repeating-linear-gradient(50deg, rgba(255,255,255,0.33)  0% , lightskyblue 50%, rgba(255,255,255,0.33) 100%);
+        transform: skew(0deg,1deg)  translate(0px, 5px);
+        box-shadow: 5px 5px 30px gray;
+    }
+}
+
+
+
+.wavyBackground{
+    animation-name:wavyBackground;
+    animation-duration:2s;
+    animation-iteration-count: infinite;
+
+}
+
+
+@keyframes wobble{
+    from{
+        transform: translate(0px, 0px) scale(1);
+
+
+    }
+    50%{
+        transform: translate(10px, -4px) scale(1.05, 1.01);
+    }
+    to{
+        transform: translate(0px, 0px) scale(1);
+
+    }
+}
+
+.wobble{
+    animation-name:wobble;
+    animation-duration:2s;
+    animation-iteration-count: infinite;
+}
+
+
+@keyframes falling{
+    0%{
+        transform: translate(0vh, -100vh);
+    }
+
+    100%{
+        transform: translate(0vh, 0vh) rotate(720deg);
+    }
+}
+
+.falling{
+    animation-name:falling;
+    animation-duration:6s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+
+}
+
+
+.font-weight-bold{
+    font-weight: bold;
+}
+
+.font-size-20px{
+    font-size: 20px;
+}
+.font-size-24px{
+    font-size: 24px;
+}
+.font-size-28px{
+    font-size: 28px;
+}
+
+.font-size-32px{
+    font-size: 32px;
+}
+
+
+@keyframes throbbingText{
+    from{
+        color:white;
+        box-shadow: inset 0px 0px 15px 5px white;
+        text-shadow: 2px 2px 3px black;
+
+    }
+    50%{
+        color:white;
+        box-shadow: inset 0px 0px 0px 0px white;
+        text-shadow: -0px -0px 3px black;
+    }
+    to{
+        color:white;
+        box-shadow: inset 0px 0px 15px 5px white;
+        text-shadow: 2px 2px 3px black;
+    }
+}
+
+.throbbingText{
+    animation-name:throbbingText;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    font-size: 1.333em;
+}
+
+
+.workoutToolTip{
+
+}
+
+.workoutToolTipText{
+    position:absolute;
+    left:2%;
+    padding:0.5ch;
+    background-color:rgba(255,255,255,0.5);
+    border-radius:10px;
+    color:black;
+    font-weight: bold;
+    font-size:18px;
+    transition:all 0.3s ease-in-out;
+}
+
+.workoutToolTip:hover .workoutToolTipText{
+    /*float:right;*/
+    font-size:0px;
+}
+
+.workoutToolTipText:first-child{
+    top:3%;
+}
+
+
+.workoutToolTipText:nth-child(2){
+    top:15%;
+}
+
+
+
+
+.workoutPhaseToolTip{
+}
+
+.workoutPhaseToolTip:hover .workoutPhaseToolTipText{
+
+    display: block;
+    font-size:18px;
+    color:black;
+    background-color: rgba(255,255,255,0.5);
+    border-radius: 10px;
+    font-weight: bold;
+    margin:0.25ch 0.5ch;
+    padding:0.5ch 1ch;
+}
+
+.workoutPhaseToolTip .workoutPhaseToolTipText{
+
+    transition: all 0.2s ease-in;
+    display: block;
+    font-size:0px;
+    margin:0ch;
+    padding: 0ch;
+}
+
+
+
+
+@keyframes fadeInXY{
+    from{
+        opacity: 0%;
+        transform:scale(0,0);
+    }
+    to{
+        opacity: 100%;
+        transform: scale(1,1);
+    }
+}
+
+@keyframes fadeInY{
+    from{
+        opacity: 0%;
+        transform:scale(1,0);
+    }
+    to{
+        opacity: 100%;
+        transform: scale(1,1);
+    }
+}
+
+.fadeInXY{
+    animation-name:fadeInXY;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+
+    width:100%;
+    border-collapse: collapse;
+    height:100%;
+}
+
+.fadeInY{
+    animation-name:fadeInY;
+    animation-duration: 0.75s;
+    animation-iteration-count: 1;
+
+    width:100%;
+    border-collapse: collapse;
+    height:100%;
+}
+
+
+@keyframes spin {
+    from {
+        width: 0%;
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* The element to apply the animation to */
+.dazzle {
+    animation-name: spin;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    width: 80px;
+    margin-right: 1%;
+}
+
+sup {
+    vertical-align: top;
+    position: relative;
+    top: -0.5ch;
+    font-size: 66%;
+}
+
+sub {
+    vertical-align: bottom;
+    position: relative;
+    bottom: -0.5ch;
+    font-size: 12px;
+}
+
+/* UNORDERED LIST CLASSES */
+
+.unorderedList {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.unorderedListItem {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
+    vertical-align: central;
+}
+
+/* CLASS TO USE IN DIV TO CLEAR BOTH WITH NO OTHER FOOTPRINT */
+
+.clearBoth {
+    margin: 0px;
+    padding: 0px;
+    clear: both;
+}
+
+/* IMAGE TILE MENU */
+
+a img.imageTileMenu {
+    height: 200px;
+    box-shadow: 5px 5px 10px lightgrey;
+}
+
+a img.imageTileMenu:hover {
+    box-shadow: 2px 2px 5px lightgrey;
+}
+
+div.imageTileMenuRow {
+    display: inline-flex;
+    flex-direction: row;
+    padding: 10px 0px 10px;
+}
+
+p.tileMenuRowDescription {
+    padding: 0px 0px 20px 20px;
+    color: #5c5454;
+    font-size: 12px;
+}
+
+
+
+/* TABLE PLOTTER */
+
+table.tablePlotter {
+    table-layout: fixed;
+    border-width: 0px;
+    background-color: lightcyan;
+    border-collapse: collapse;
+}
+tr.tablePlotter {
+    margin: 0px;
+    padding: 0px;
+}
+tr td.tablePlotter {
+    margin: 0px;
+    padding: 1px;
+}
+
+
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+    }
+    to{
+        opacity:1;
+    }
+}
+
+.easeInPage{
+    animation: 0.1s fadeIn;
+
+}
+
+.error {
+    color: red;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+.workoutLabel{
+    width:fit-content;
+    font-weight: bold;
+    font-size:24px;
+    padding:0.5ch 1ch;
+    border-radius:15px;
+    box-shadow: 5px 5px 5px lightgray;
+}
+
+div.workout {
+    margin: 20px 80px;
+    font-size: 30px;
+    background-color: lightyellow;
+    border-style: solid;
+    border-width: 0px;
+    border-color: black;
+    border-radius: 10px;
+    box-shadow: 3px 3px 15px brown;
+}
+
+div.workoutStep {
+    margin: 20px;
+    font-size: 20px;
+    background-color: white;
+    border-style: solid;
+    border-width: 0px;
+    border-color: black;
+}
+
+div.workoutStepEditing {
+    font-size: 60px;
+    font-weight: bold;
+    margin: 20px;
+    background-color: lightpink;
+    border-style: solid;
+    border-width: 0px;
+    border-color: black;
+}
+
+.ZwiftWorkoutCard{
+    width:fit-content;
+    margin-left:auto;
+    margin-right:auto;
+    background-color:#CCEEFF;
+    color:black;
+    font-weight:bold;
+    box-shadow: 5px 5px 5px gray;
+    padding:1ch 2ch;
+    line-height: 150%;
+    font-size:120%;
+    text-wrap: nowrap;
+}
+
+@keyframes rotateIn{
+    from{
+        transform:rotate(360deg) scale(0.0,0.0);
+        filter: contrast(300%) hue-rotate(180deg);
+    }
+
+    5%{
+        transform:rotate(-7deg) scale(2,2);
+    }
+    10%{
+        transform:rotate(-3deg) scale(1,1);
+        filter: contrast(100%) hue-rotate(0deg);
+
+    }
+
+    50%{
+        transform:rotate(0deg) scale(1.25,1.25);
+    }
+    to{
+        transform:rotate(0deg) scale(1,1);
+
+    }
+}
+
+
+.ParentImageGrid{
+    position:absolute;
+    width: 100%;
+    height: 70vh;
+    overflow:clip;
+    object-fit: cover;
+    position: fixed;
+    z-index: -1;
+    background-color:red;
+    margin:0ch;
+    border:0px solid red;
+
+}
+
+.ParentImageGridUpperLeft{
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    min-width:100%;
+    min-height:100%;
+    transform-origin: center;
+    object-fit: cover;
+
+}
+.ParentImageGridUpperRight{
+
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    max-width:50%;
+    max-height:50%;
+    transform-origin: center;
+    background-color:white;
+    padding:2ch;
+    box-shadow: 10px 10px 20px black;
+    object-fit: cover;
+
+}
+.ParentImageGridLowerLeft{
+
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+    max-width:50%;
+    max-height:50%;
+    transform-origin: center;
+    background-color:white;
+    padding:2ch;
+    box-shadow: 10px 10px 20px black;
+    object-fit: cover;
+
+}
+.ParentImageGridLowerRight{
+
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    max-width:50%;
+    max-height:50%;
+    transform-origin: center;
+    background-color:white;
+    padding:2ch;
+    box-shadow: 10px 10px 20px black;
+    object-fit: contain;
+
+
+
+}
+
+.rotateIn{
+    animation-name: rotateIn;
+    animation-duration: 7s;
+
+}
+
+
+.rowOfElements{
+    display:flex;
+}
+
+/*
+
+.dontPrint{
+    display:none;
+}
+
+.print{
+    display:unset;
+}
+
+*/
+
+@keyframes transientWindow{
+    from{
+        opacity:0;
+
+
+    }
+    10%{
+        opacity:1;
+
+    }
+    90%{
+        opacity:1;
+
+    }
+    to{
+        opacity:0;
+
+    }
+}
+
+@keyframes transientShowLoggedIn{
+    from{
+        opacity:8;
+        width:2%;
+        height:1%;
+        top:0vh;
+        right:0vh;
+
+    }
+    30%{
+        opacity:1;
+        width:16%;
+        height:4%;
+        top:48%;
+        right:42%;
+    }
+    70%{
+        opacity:1;
+        width:16%;
+        height:4%;
+        top:48%;
+        right:42%;
+    }
+    to{
+        opacity:0;
+        top:0%;
+        right:0%;
+        top:2%;
+        right:1%;
+
+    }
+}
+
+.transientShowLoggedIn{
+    transform-origin: center;
+    z-index: 1000;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    overflow:hidden;
+    opacity: 0;
+    color:black;
+    background-color:yellow;
+    font-size: 1.5em;
+    font-weight: bold;
+
+    /*border: 3px solid black;*/
+    box-shadow: 5px 5px 10px black;
+    border-radius: 15px;
+    animation: transientShowLoggedIn;
+    animation-duration: 2s;
+}
+
+.transientWindow{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width:20vw;
+    height:10vh;
+    top: 40vh;
+    left: 33vw;
+    overflow:hidden;
+    opacity: 0;
+    color:black;
+    background-color:greenyellow;
+    font-size: 1.5em;
+    font-weight: bold;
+    padding:4ch 8ch;
+
+    /*border: 3px solid black;*/
+    box-shadow: 5px 5px 10px black;
+    border-radius: 15px;
+    animation: transientWindow;
+    animation-duration: 4s;
+}
+
+@media print{
+
+    .pageBreakBefore {
+        page-break-before: always;
+    }
+
+    .pageBreakAfter{
+        page-break-after: always;
+    }
+
+    .tableTitle{
+        background-color:black;
+        color:white;
+    }
+
+    footer {
+        page-break-after: always;
+    }
+
+    .dontPrint{
+        display: none;
+    }
+
+    .print{
+        display:unset;
+    }
+
+
+
+}
+
+
+
