@@ -73,19 +73,29 @@ class Physiology extends Page {
         $tr = $table->makeChild('tr', ' ', ['style' => 'background-color: orange',]);
         $tr->makeChild('td', '20');
         $tr->makeChild('td', 'Maximal exertion');
+
         $article->makeChild('p', ' I have found the development of objective physiological measures far more useful for my day to day training.');
-        $article->makeChild('p', ' This involves measuring some value that is correlated to exercise intensity. Examples are pace, heart rate and power. For each measure that we use we need to calibrate it to our own performance if it is to help us prescribe exercise intensity. This typically involves finding the maximum steady value that we can sustain for a certain period of time. Once we have this, we can develop a system of zones based on ranges described in percentages of this value. One example from running would be something called Threshold Pace or TP (for the moment ignore the details, it is just an objective datum on which to hang zones). This is usually predicted from the maximum steady pace that we can achieve during a 30 minutes field test. ');
+        $article->makeChild('p', ' This involves measuring some value that is correlated to exercise intensity.'
+                . ' Examples are pace, heart rate and power. For each measure that we use we need to calibrate it to our own '
+                . 'performance if it is to help us prescribe exercise intensity. This typically involves finding the maximum '
+                . 'steady value that we can sustain for a certain period of time. Once we have this, we can develop a system of '
+                . 'zones based on ranges described in percentages of this value. One example from running would be something called '
+                . 'Threshold Pace or TP (for the moment ignore the details, it is just an objective datum on which to hang zones). '
+                . 'This is usually predicted from the maximum steady pace that we can achieve during a 30 minutes field test. ');
+
+        $article = $this->body->makeChild('article', ' ');
+
         $article->makeChild('h2', 'Objective Intensity Measures');
         $article->makeChild('h3', 'Heart Rate Zones');
         $article->makeChild('p', ' Heart rate is probably the second oldest objective measure of effort coming after pace. The development of and ready availability of wearable heart rate monitors means that this is often the first objective measure of exercise intensity used by athletes new to structured training. There is something very reassuring about using heart rate. But how do you work out zones of training intensity based on it? There are numerous schemes available, some better than others. Heart rate does however have its limitations which will be discussed at the end of this section. ');
         $article->makeChild('h4', 'Maximum Heart Rate based zones. ');
         $p = $article->makeChild('p', ' ');
         $p->makeChild('a', 'Polar HR Scheme', ['class' => 'Button', 'href' => 'https://www.polar.com/fr/smart-coaching/what-are-heart-rate-zones?gclid=Cj0KCQjwvaeJBhCvARIsABgTDM6pCOGrvgAitBt4_iDoQa4aas6HMbAMluJnuhBA_A2tGN3WupnHggQaAoVIEALw_wcB',]);
-        $article->makeChild('img', '', ['src' => '../Images/Polar.png', 'class' => 'width30 center',]);
+        $article->makeChild('img', '', ['src' => '../Images/Polar.png', 'class' => 'width50 center',]);
         $article->makeChild('h4', 'Heart Rate Reserve based zones. ');
         $p = $article->makeChild('p', ' ');
         $p->makeChild('a', ' Karvonen ', ['class' => 'Button', 'href' => 'https://www.running-addict.fr/conseil-running/formule-de-karvonen-calcul-zone-cardiaque/',]);
-        $article->makeChild('img', '', ['src' => '../Images/Polar.png', 'class' => 'centerImage33',]);
+        $article->makeChild('img', '', ['src' => '../Images/Polar.png', 'class' => 'center width50',]);
         $article->makeChild('p', ' So if we use Karvonen zones we need to know two things, resting heart rate and maximum heart rate. Resting heart rate is straightforward enough. âThe problem is how do you find out your maximum heart rate? ');
         $article->makeChild('h4', 'Maximum Heart Rate');
         $article->makeChild('p', ' I have seen athletes confound maximum heart rate with the maximum heart rate achieved during routine training. They are different! The latter is easily available on modern devices but is likely to be quite a bit lower than your true maximum heart rate. If you base your zones on this value you may get an easy ride but may not improve as much as you should. ');
@@ -94,7 +104,7 @@ class Physiology extends Page {
         $p = $article->makeChild('p', ' Even better approximations have been developed which also take in to account gender. These approximations are great for predicting the average maximum heart rate for a particular age ');
         $p->makeChild('span', 'in groups of people', ['style' => 'font-weight: bold;font-style: italic;',]);
         $p->makeChild('span', 'particular individual', ['style' => 'font-weight: bold;font-style: italic;',]);
-        $article->makeChild('img', '', ['class' => 'centerImage66', 'src' => '../Images/AgePredictedMaxHR.png', 'alt' => 'pic',]);
+        $article->makeChild('img', '', ['class' => 'center width650', 'src' => '../Images/AgePredictedMaxHR.png', 'alt' => 'pic',]);
         $article->makeChild('div', 'Source: Age-predicted maximal heart rate in healthy subjects: The HUNT Fitness Study', ['class' => 'centredBoldText',]);
         $article->makeChild('p', ' If you are to use maximum heart rate as your datum on which to base your zone values then unfortunately you really need to measure it. This is an uncomfortable and stressful thing to do. You need to be confident that you are in good health. Unless you are young with no adverse family or personal medical history you should consult your doctor first. ');
         $article->makeChild('p', ' So are you stuck with having to actually measure your maximum HR with a field test? Thankfully not, and here is why.â There is a much better datum on which to base your training zones. It is one that is applicable across all endurance sports and all measures of performance. It has a sound physiological bases and will ensure your training zones target that which can be improved the most. ');
@@ -113,7 +123,7 @@ class Physiology extends Page {
         $p->makeChild('sub', '2');
         $p->makeChild('sub', '2');
         $p->makeChild('sub', '2');
-        $article->makeChild('img', '', ['class' => 'centerImage90', 'src' => '../Images/LactateThreshold.png', 'alt' => 'pic',]);
+        $article->makeChild('img', '', ['class' => 'centerImage width90', 'src' => '../Images/LactateThreshold.png', 'alt' => 'pic',]);
         $h4 = $article->makeChild('h4', 'VO');
         $h4->makeChild('sub', '2');
         $p = $article->makeChild('p', ' There is clearly a relationship between VO');
@@ -137,7 +147,7 @@ class Physiology extends Page {
         $p->makeChild('sub', '2');
         $p->makeChild('sub', '2');
         $p->makeChild('sub', '2(max)');
-        $article->makeChild('iframe', '', ['style' => 'float:right; margin: 10px 0px 20px 50px;', 'src' => 'https://www.youtube.com/embed/kZLaxdSr3c0', 'height' => '336', 'title' => 'YouTube video player', 'frameborder' => '0', 'allowfullscreen' => '',]);
+        $article->makeChild('iframe', '', ['src' => 'https://www.youtube.com/embed/kZLaxdSr3c0', 'height' => '336', 'title' => 'YouTube video player', 'frameborder' => '0', 'allowfullscreen' => '',]);
         $p = $article->makeChild('p', ' To demonstrate this I have produced this animation with VO');
         $p->makeChild('sub', '2');
         $p->makeChild('sub', '2');
@@ -145,11 +155,11 @@ class Physiology extends Page {
         $p->makeChild('sub', '2');
         $p->makeChild('sub', '2');
         $p->makeChild('sub', '2');
-        $article->makeChild('h4', 'What about MLSS, OBLA, AT, VT etc...');
+
+        $article = $this->body->makeChild('article');
         $aside = $article->makeChild('aside', ' MLSS - Maximum Lactate Steady State');
-        $aside->makeChild('br');
-        $aside->makeChild('br');
-        $aside->makeChild('br');
+        $article->makeChild('h4', 'What about MLSS, OBLA, AT, VT etc...');
+
         $article->makeChild('p', ' Of course a plot of lactate vs. intensity of activity (power, flat pace etc...) does not have a "point" where lactate suddenly starts rising. It is a curve, though admittedly with a hockey stick shape which is more noticeable in a trained athlete. We can look at a curve and say - yep - it really starts rising quickly there but if we are to ascribe this to a certain intensity level we need a rule to find a point on the curve. To do this we need a definition. This is where things get messy as there is no single definition! There are at least 20 different definitions of lactate threshold in published research and a multitude of synonyms to describe these. We might choose a threshold level of lactate but then which level? Lactate at rest hovers around 1 (mmol/l). Definitions using a threshold level seem to range from 2 to 4. These assume that the level of lactate has reached a constant value at a particular steady exercise intensity (and so measurements are taken after a suitable delay following changing to this intensity). ');
         $p = $article->makeChild('p', ' But we can then choose to bring in a time element and define the lowest intensity where blood lactate does ');
         $b = $p->makeChild('b');
@@ -161,17 +171,12 @@ class Physiology extends Page {
         $article->makeChild('h4', 'Training Variety and Lactate Threshold');
         $article->makeChild('p', ' Of course training and improving the efficiency of lactate elimination is not the only element of training. We also need to do activities that improve our strength, core stability, flexibility, endurance and efficiency. We need to train our neuromuscular system. We need train ourselves to tolerate a degree of discomfort as this is invariably present in competition. These are all necessary, but without training the lactate system, these would of themselves be insufficient for success in fast endurance activities. ');
         $article->makeChild('p', ' We also need to know where our lactate threshold is in order to avoid it! Training near lactate threshold and also the avoidance of training near lactate threshold are both crucially important to polarized training. Having a system of zones of intensity that are based on a reasonably current and representative field test of lactate threshold allow us to do this with confidence. ');
-        $table = $article->makeChild('table', ' ');
-        $tr = $table->makeChild('tr', ' ');
-        $td = $tr->makeChild('td', '', ['style' => 'width: 50%;',]);
-        $td->makeChild('img', '', ['src' => '../Images/EasyRun.png', 'style' => 'margin-left:auto; margin-right: auto; display:block; width: 93%; height: 93%',]);
-        $td = $tr->makeChild('td', '', ['style' => 'width: 50%;',]);
-        $td->makeChild('img', '', ['src' => '../Images/HardRun.jpg', 'style' => 'margin-left:auto; margin-right: auto; display:block; width: 81%; height: 81%; text-align: center;',]);
-        $tr = $table->makeChild('tr', ' ');
-        $tr->makeChild('td', 'Easy Long Run (with Dogs!)', ['style' => 'text-align: center; font-size: 70%; font-weight: bold;',]);
-        $td = $tr->makeChild('td', 'Hard Run (Cardiff ', ['style' => 'text-align: center; font-size: 70%; font-weight: bold;',]);
-        $td->makeChild('sup', '1');
-        $td->makeChild('sub', '2');
+        //$article->makeChild('div', 'P R O B E', ['style'=>'color:white; background:red; font-size:2em; padding:1ch;']);
+
+        $grid = $article->makeChild('div', '', ['class' => 'image-grid']);
+        $grid->makeChild('img', '', ['src' => '../Images/EasyRun.png']);
+        $grid->makeChild('img', '', ['src' => '../Images/HardRun.jpg']);
+
         $article->makeChild('h4', 'Lactate Threshold vs. FTP, rFTPw, LTHR etc...');
         $p = $article->makeChild('p', ' But what about all the different threshold values out there? Pace, heart rate and power for running, cycling and swimming? Well, they are all doing the same thing. The thing to keep in mind throughout this apparent complexity is that there is only one physiological event taking place in us as we reach lactate threshold. ');
         $p->makeChild('span', 'We just have to calibrate each sport and metric combination relative to this.', ['style' => 'font-weight: bold; font-style: italic;',]);
@@ -199,11 +204,14 @@ class Physiology extends Page {
         $article->makeChild('h4', 'Critical Power');
         $article->makeChild('a', 'Critical Power', ['class' => 'Button', 'href' => 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5070974/',]);
         $article->makeChild('p', ' I feel that I should now discuss critical power. This is a fascinating concept as, unlike lactate threshold, it merely observes performance without any need for a metabolic correlate. It works like this: ');
-        $figure = $article->makeChild('figure', ' ', ['class' => 'centerImage90',]);
-        $figure->makeChild('img', '', ['style' => 'width:45%;', 'src' => '../Images/PowerCurve.png',]);
-        $figure->makeChild('img', '', ['style' => 'width:45%;', 'src' => '../Images/PowerLine.png',]);
+        $figure = $article->makeChild('figure', ' ', ['class' => 'image-grid',]);
+        $figure->makeChild('img', '', ['src' => '../Images/PowerCurve.png',]);
+        $figure->makeChild('img', '', ['src' => '../Images/PowerLine.png',]);
         $figure->makeChild('figcaption', ' A typical power-duration curve and line for an athlete. ');
-        $article->makeChild('aside', ' It is remarkable that this relationship seems universal across species and so must represent something quite fundamental. ', ['style' => 'width:20%',]);
+        $article = $this->body->makeChild('article');
+
+        $article->makeChild('aside', ' It is remarkable that this relationship seems universal across species and so must represent '
+                . 'something quite fundamental. ', ['class' => '',]);
         $article->makeChild('p', ' There is a threshold intensity of training, the critical power, below which there is no time limitation of activity. Above this threshold, training is time limited. The more intense the training above this threshold, the shorter the possible duration of activity. It can be shown that a very simple equation describes this relationship, which is commonly referred to as a power curve, and is stated below. ');
         $article->makeChild('sub', 'c');
         $article->makeChild('sub', 'a');
@@ -217,7 +225,7 @@ class Physiology extends Page {
         $p = $article->makeChild('p', ' We just need to fit a line between these points. The gradient is w');
         $p->makeChild('sub', 'a');
         $p->makeChild('sub', 'c');
-        $article->makeChild('img', '', ['class' => 'centerImage50', 'src' => '../Images/MyPowerCurves.png',]);
+        $article->makeChild('img', '', ['class' => 'center width90', 'src' => '../Images/MyPowerCurves.png',]);
         $article->makeChild('p', ' Luckily modern watch and web site technology allow an individual to accumulate a large data set of power and duration data pairs. The upper boundary of these, if recent enough, indicates the general shape of your power curve. It has to be realized however that in general this upper boundary of all these data pairs will be lower than your "true" power curve. This is because from your everyday training you may not have sufficient maximum effort-duration data pairs at all intensities to fully flesh it out and of course any effort-duration pair is in the context of a complete run and therefore cannot utilize all anaerobic reserve energy or you would stop! The above shows my running power curve over several years. It was only in 2019 that my training was varied enough (a structured training plan with very short intervals, short intervals, longer intervals, tempo runs, long steady runs and recovery runs as per 80:20 running) to push the curve out towards my probable true power curve. However derived, if I have a good estimate of my power curve, I can Tools::interpolate a value for a duration of 30 minutes. This value corresponds to my lactate threshold. ');
         $article->makeChild('p', ' For a steady power of 60 minutes or more in duration the theoretical power-duration curve is very close to the horizontal plot of CP. This has, therefore, been chosen as a surrogate of CP but it will be a slightly higher value. To muddy the waters further this is variously described as CP or Functional Threshold Power - FTP. FTP is a misnomer as it is not a threshold as it is neither CP nor power at LT. If we accept this definition of FTP it must, from the concept of critical power and the basis of field tests of LT, be lower than power than power at LT. ');
         $article->makeChild('p', ' It would be good to have a simple descriptive system to describe predicted or measured steady state power-duration values rather than a plethora of confusing and ambiguous terms. ');
@@ -254,7 +262,7 @@ class Physiology extends Page {
         $article->makeChild('h3', "Don't Mix Things Up");
         $article->makeChild('p', " Of course each authority is keen to promote their zonal system as best. In reality there is no good evidence to promote one scheme over another. I think the main thing to consider is if you choose to use a training plan from a particular coach you need to use his zone scheme too. To not do so would be, by analogy, the equivalent of transferring a tune, note for note, line by line, into a different musical scale. It probably wouldn't sound good!ââ ");
         $article->makeChild('p', ' In reality you might undertrain or worse overtrain and injure yourself. ');
-        $article->makeChild('img', '', ['class' => 'centerImage50', 'src' => '../Images/tema.png',]);
+        $article->makeChild('img', '', ['class' => 'center width50', 'src' => '../Images/tema.png',]);
         $article->makeChild('h3', 'Now Mix Things Up');
         $article->makeChild('p', ' We have covered the physiological basis of training zones and how, for endurance athletes, the best choice of basis for these is lactate threshold (pace, power, heart rate). With this objective basis we can reliably know where the intensity of our training is positioned in relation to this important datum. It allows us to both target lactate threshold and just as importantly to avoid it. It allows us to calculate our training load from a wide variety of activities. This informs our future training. ');
         $article->makeChild('p', '.');

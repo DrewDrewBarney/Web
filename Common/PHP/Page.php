@@ -28,7 +28,7 @@ class Page {
     private function makeHead(string $title = ''): void {
         //$head = Tag::make("head", '', ['style' => 'z-index: 1000;']);
         $this->head->makeChild('title', $title);
-        $this->head->makeChild('meta', '', ['name' => 'viewport', 'content' => 'width = device-width']);
+        $this->head->makeChild('meta', '', ['name' => 'viewport', 'content' => 'width = device-width, initial-scale=1']);
 
         foreach (Context::relativeCSSpaths() as $files) {
             $this->head->makeChild("link", "", ["rel" => "stylesheet", "type" => "text/css", "href" => $files]);

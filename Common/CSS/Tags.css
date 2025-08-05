@@ -3,6 +3,7 @@ html, body, * {
     padding: 0;
     box-sizing: border-box;
     font-family:sans-serif;
+    text-align: left;
 }
 
 html {
@@ -12,14 +13,14 @@ html {
 }
 
 body {
-  display: grid;
-  min-height: 100vh; /* Make sure body fills the viewport */
-  grid-template-rows: auto 1fr auto; /* Two rows: main (1fr) + footer (auto height) */
-  margin: 0;
+    display: grid;
+    min-height: 100vh; /* Make sure body fills the viewport */
+    grid-template-rows: auto 1fr auto; /* Two rows: main (1fr) + footer (auto height) */
+    margin: 0;
 }
 
 form {
- 
+
 }
 
 h1,
@@ -39,10 +40,10 @@ h1{
 h2{
     padding: 3ch 0ch 1ch 0ch;
     font-size:1.75em;
-    
+
 }
 h3{
-   
+
     font-size:1.5em;
 }
 h4{
@@ -59,23 +60,47 @@ p{
     padding:0ch 0ch 2ch 0ch;
     line-height: 1.5em;
     font-size:1.1em;
-   
+    text-align: inherit;
+
+}
+
+body > article:first-of-type{
+    margin:15ch 25ch 1ch 25ch;
+    text-align: justify;
+
+
 }
 
 article {
-    display: flow-root;
-    margin:15ch 15ch 15ch 15ch;
+    margin:5ch 25ch 1ch 25ch;
     text-align: justify;
+    display: flow-root;
     font-family: Arial;
     font-size: 125%;
     color: darkslategray;
 }
 
+
+
 header{
-    
+
 }
 
 footer{
+
+}
+
+aside{
+    width:20ch;
+
+    background:lightyellow;
+    padding:1ch;
+    border-radius:2ch;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+
+    position:absolute;
+    right:1.5ch;
+
 
 }
 

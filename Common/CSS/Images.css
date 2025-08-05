@@ -1,6 +1,16 @@
 
 
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px; /* space between images */
+}
 
+.image-grid img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
 
 
 
