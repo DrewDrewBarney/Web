@@ -12,14 +12,14 @@ class TokenMap {
     }
 
     function start(): void {
-        $this->cursor = &$this->entry;
+        $this->cursor = $this->entry;
     }
 
-    function charIsOnTrack(string $char): bool {
+    function onTrack(string $char): bool {
         return $this->cursor->onTrack($char);
     }
 
-    function walk(string $char): bool {
+    function step(string $char): bool {
         if ($this->cursor) {
             $this->cursor = $this->cursor->next($char);
             if ($this->cursor) {

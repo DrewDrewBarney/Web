@@ -18,7 +18,7 @@ class MathParser{
         $this->tokeniser->prime();
         $token = $this->tokeniser->getToken();
         while ($token){
-            echo $token->token . ' ';
+            $token->echo();
             $token = $this->tokeniser->getToken();
         }
     }
@@ -32,5 +32,5 @@ class MathParser{
 }
 
 
-$parser = new MathParser('2+2=4');
+$parser = new MathParser('2+2=4.4/8');
 $parser->tokenise();

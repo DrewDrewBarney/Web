@@ -9,6 +9,10 @@ class Token {
         $this->token = $token;
         $this->type = $type;
     }
+    
+    function echo(){
+        echo '<h3>' . $this->token . ' </h3> ' . $this->type . '<br>';
+    }
 }
 
 class Tokeniser {
@@ -24,6 +28,7 @@ class Tokeniser {
 
     function prime(): void {
         $this->text->start();
+        $this->map->start();
         $this->chr = $this->text->get();
     }
 
@@ -33,11 +38,11 @@ class Tokeniser {
         $this->map->start();
 
         // gobble up any unrecognised characters which are considered as whitespace
-        while (!($this->map->charIsOnTrack($this->chr) || $this->text->atEnd())) {
+        while (!($this->map->onTrack($this->chr) || $this->text->atEnd())) {
             $this->chr = $this->text->get();
         }
 
-        while ($this->map->walk($this->chr)) {
+        while ($this->map->step($this->chr)) {
             $token .= $this->chr;
             $this->chr = $this->text->get();
         };

@@ -47,16 +47,13 @@ class MathTokenMap extends TokenMap {
 
         $this->number->addStep($this->numberChars, $this->number);
         $this->number->addStep('.', $this->decimal);
-
         $this->decimal->addStep($this->numberChars, $this->decimal);
 
         // OPERATORS
 
         $this->less->addStep('=', $this->opEnd);
         $this->less->addStep('>', $this->opEnd);
-
         $this->greater->addStep('=', $this->opEnd);
-
         $this->equals->addStep('=', $this->opEnd);
 
         // PUNCTUATION

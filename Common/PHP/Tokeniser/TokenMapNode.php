@@ -10,7 +10,7 @@ class TokenMapNode {
         $this->tokenType = $type;
     }
 
-    public function addStep(string $set, TokenMapNode &$node) {
+    public function addStep(string $set, TokenMapNode $node) {
         $this->validSteps[$set] = $node;
     }
 
@@ -24,7 +24,7 @@ class TokenMapNode {
         return false;
     }
 
-    public function &next(string $char): ?TokenMapNode {
+    public function next(string $char): ?TokenMapNode {
         $result = null;
         foreach ($this->validSteps as $key => $value) {
             $within = $this->within($char, $key);
