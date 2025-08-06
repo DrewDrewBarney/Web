@@ -1,17 +1,44 @@
 <?php
 
+
+class TokenTypes{
+    const ATYPICAL = 999;
+    const NUMBER = 0;
+    const DECIMAL = 1;
+    const ALPHA = 2;
+    const ALPHANUMERIC = 3;
+    const OPERATOR = 4;
+    const BRACE = 5;
+    const PUNCT = 6;
+    
+    const MAP = [
+        self::ATYPICAL => 'atypical',
+        self::NUMBER => 'number',
+        self::DECIMAL => 'decimal',
+        self::ALPHA => 'alpha',
+        self::ALPHANUMERIC => 'alphanumeric',
+        self::OPERATOR => 'operator',
+        self::BRACE => 'brace',
+        self::PUNCT => 'punctuation'
+    ];
+    
+    static function typeString(int $type):string{
+        return isset(self::MAP[$type]) ? self::MAP[$type] : self::MAP[self::ATYPICAL];
+    }
+}
+
 class Token {
 
     public string $token = '';
-    public string $type = '';
+    public int $type = TokenTypes::ATYPICAL;
 
-    function __construct(string $token, string $type) {
+    function __construct(string $token, int $type) {
         $this->token = $token;
         $this->type = $type;
     }
     
     function echo(){
-        echo '<h3>' . $this->token . ' </h3> ' . $this->type . '<br>';
+        echo '<h3>' . $this->token . ' </h3> ' . TokenTypes::typeString($this->type) . '<br>';
     }
 }
 

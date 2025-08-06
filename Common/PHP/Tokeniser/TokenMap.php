@@ -4,10 +4,10 @@ class TokenMap {
 
     protected ?TokenMapNode $entry = null;
     protected ?TokenMapNode $cursor = null;
-    protected $tokenType = 'atypical';
+    protected $tokenType = TokenTypes::ATYPICAL;
 
     function __construct() {
-        $this->entry = new TokenMapNode('atypical');
+        $this->entry = new TokenMapNode(TokenTypes::ATYPICAL);
         $this->start();
     }
 

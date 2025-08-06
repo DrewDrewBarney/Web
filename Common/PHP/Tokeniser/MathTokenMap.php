@@ -28,17 +28,19 @@ class MathTokenMap extends TokenMap {
     function __construct() {
 
         // CONSTRUCT ALL THE MAP LOCATIONS
-        $this->alphaNumeric = new TokenMapNode('alphaNumeric');
-        $this->number = new TokenMapNode('number');
-        $this->decimal = new TokenMapNode('decimal');
-        $this->opEnd = new TokenMapNode('operator');
-        $this->less = new TokenMapNode('operator');
-        $this->greater = new TokenMapNode('operator');
-        $this->equals = new TokenMapNode('operator');
-        $this->punctEnd = new TokenMapNode('punctuation');
-        $this->braceEnd = new TokenMapNode('brace');
+        //////////////////////////////////
+        $this->alphaNumeric = new TokenMapNode(TokenTypes::ALPHANUMERIC);
+        $this->number = new TokenMapNode(TokenTypes::NUMBER);
+        $this->decimal = new TokenMapNode(TokenTypes::DECIMAL);
+        $this->opEnd = new TokenMapNode(TokenTypes::OPERATOR);
+        $this->less = $this->opEnd;
+        $this->greater = $this->opEnd;
+        $this->equals = $this->opEnd;
+        $this->punctEnd = new TokenMapNode(TokenTypes::PUNCT);
+        $this->braceEnd = new TokenMapNode(TokenTypes::BRACE);
 
         // DEFINE HOW THE LOCATIONS LINK TO OTHER LOCATIONS
+        // 
         // ALPHANUMERIC
 
         $this->alphaNumeric->addStep($this->alphaNumericChars, $this->alphaNumeric);
