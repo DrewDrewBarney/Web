@@ -5,7 +5,7 @@
         <group>
             <file>file:/Library/WebServer/Documents/Common/PHP/Tokeniser/StringWalker.php</file>
             <file>file:/Library/WebServer/Documents/Common/PHP/Tokeniser/TokenMap.php</file>
-            <file>file:/Library/WebServer/Documents/Common/PHP/MathParser/MathParser.php</file>
+            <file>file:/Library/WebServer/Documents/Common/PHP/Tokeniser/TokenMapNode.php</file>
             <file>file:/Library/WebServer/Documents/Common/PHP/Tokeniser/Tokeniser.php</file>
             <file>file:/Library/WebServer/Documents/Common/PHP/Tokeniser/MathTokenMap.php</file>
         </group>

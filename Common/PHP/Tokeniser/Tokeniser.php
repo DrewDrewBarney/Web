@@ -26,18 +26,14 @@ class Tokeniser {
         $this->text->start();
         $this->chr = $this->text->get();
     }
-    
-    function atEnd():bool{
-        return $this->text->atEnd();
-    }
 
-    function getToken(): Token {
+    function getToken(): ?Token {
 
         $token = '';
         $this->map->start();
 
         // gobble up any unrecognised characters which are considered as whitespace
-        while (!$this->map->charIsOnTrack($this->chr) && !$this->text->atEnd()) {
+        while (!($this->map->charIsOnTrack($this->chr) || $this->text->atEnd())) {
             $this->chr = $this->text->get();
         }
 
@@ -45,6 +41,7 @@ class Tokeniser {
             $token .= $this->chr;
             $this->chr = $this->text->get();
         };
-        return new Token($token, $this->map->type());
+
+        return $token === '' ? null : new Token($token, $this->map->type());
     }
 }

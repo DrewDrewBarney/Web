@@ -1,1 +1,0 @@
-O:16:"LabeledTextField":4:{s:7:"fieldID";s:15:"1001@input@text";s:5:"value";s:0:"";s:8:"checkVal";O:12:"CheckInteger":4:{s:7:"inError";b:0;s:12:"errorMessage";s:0:"";s:3:"low";i:0;s:4:"high";i:10;}s:7:"caption";s:7:"input 1";}

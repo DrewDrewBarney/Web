@@ -2,27 +2,29 @@
 
 class TokenMap {
 
-    protected array $entry = [];
-    protected string $tokenType = '';
-    protected array $cursor = ['nothing'];
+    protected ?TokenMapNode $entry = null;
+    protected ?TokenMapNode $cursor = null;
+    protected $tokenType = 'atypical';
 
-     function start(): void {
+    function __construct() {
+        $this->entry = new TokenMapNode('atypical');
+        $this->start();
+    }
+
+    function start(): void {
         $this->cursor = &$this->entry;
     }
 
     function charIsOnTrack(string $char): bool {
-        foreach ($this->cursor as $key => $value) {
-            if ($this->within($key, $char)) {
-                return true;
-            }
-        }
-        return false;
+        return $this->cursor->onTrack($char);
     }
 
     function walk(string $char): bool {
-        foreach ($this->cursor as $key => $value) {
-            if ($this->within($key, $char)) {
-                $this->cursor = &$value;
+        if ($this->cursor) {
+            $this->cursor = $this->cursor->next($char);
+            if ($this->cursor) {
+                // get token type from the last non-null cursor
+                $this->tokenType = $this->cursor->tokenType();
                 return true;
             }
         }
@@ -30,12 +32,6 @@ class TokenMap {
     }
 
     function type(): string {
-        return $this->cursor[0];
-    }
-
-    // just a wrapper for clunky strpos
-
-    private function within(string $key, string $char): bool {
-        return is_string($key) ? strpos($key, $char) !== false : false;
+        return $this->tokenType;
     }
 }

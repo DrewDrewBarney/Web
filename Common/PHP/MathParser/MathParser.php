@@ -16,9 +16,17 @@ class MathParser{
     
     function tokenise():void{
         $this->tokeniser->prime();
-        while (!$this->tokeniser->atEnd()){
-            echo $this->tokeniser->getToken()->token;
+        $token = $this->tokeniser->getToken();
+        while ($token){
+            echo $token->token . ' ';
+            $token = $this->tokeniser->getToken();
         }
+    }
+    
+    
+    
+    function primitve(){
+        
     }
      
 }

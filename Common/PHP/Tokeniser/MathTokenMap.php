@@ -12,86 +12,65 @@ class MathTokenMap extends TokenMap {
     protected string $opChars1 = "+-*/^!";
     protected string $braceChars = "()[]{}";
     //
-    // ASSOCIATIVE ARRAYS WITH ALLOWED TRANSITIONS
+    // THE MAP LOCATIONS
     //
-    protected array $entry = [];
-    protected array $alphaNumeric = [];
-    protected array $number = [];
-    protected array $decimal = [];
-    protected array $opEnd = [];
-    protected array $less = [];
-    protected array $greater = [];
-    protected array $equals = [];
-    protected array $punctEnd = [];
-    protected array $braceEnd = [];
+    protected ?TokenMapNode $entry = null;
+    protected ?TokenMapNode $alphaNumeric = null;
+    protected ?TokenMapNode $number = null;
+    protected ?TokenMapNode $decimal = null;
+    protected ?TokenMapNode $opEnd = null;
+    protected ?TokenMapNode $less = null;
+    protected ?TokenMapNode $greater = null;
+    protected ?TokenMapNode $equals = null;
+    protected ?TokenMapNode $punctEnd = null;
+    protected ?TokenMapNode $braceEnd = null;
 
     function __construct() {
 
+        // CONSTRUCT ALL THE MAP LOCATIONS
+        $this->alphaNumeric = new TokenMapNode('alphaNumeric');
+        $this->number = new TokenMapNode('number');
+        $this->decimal = new TokenMapNode('decimal');
+        $this->opEnd = new TokenMapNode('operator');
+        $this->less = new TokenMapNode('operator');
+        $this->greater = new TokenMapNode('operator');
+        $this->equals = new TokenMapNode('operator');
+        $this->punctEnd = new TokenMapNode('punctuation');
+        $this->braceEnd = new TokenMapNode('brace');
+
+        // DEFINE HOW THE LOCATIONS LINK TO OTHER LOCATIONS
         // ALPHANUMERIC
 
-        $this->alphaNumeric = [
-            'alphanumeric',
-            $this->alphaNumericChars => &$this->alphaNumeric
-        ];
+        $this->alphaNumeric->addStep($this->alphaNumericChars, $this->alphaNumeric);
 
         // NUMBERS
 
-        $this->number = [
-            'number',
-            $this->numberChars => &$this->number,
-            '.' => &$this->decimal
-        ];
+        $this->number->addStep($this->numberChars, $this->number);
+        $this->number->addStep('.', $this->decimal);
 
-        $this->decimal = [
-            'decimal',
-            $this->numberChars => &$this->decimal
-        ];
+        $this->decimal->addStep($this->numberChars, $this->decimal);
 
         // OPERATORS
 
-        $this->opEnd = [
-            'operator'
-        ];
+        $this->less->addStep('=', $this->opEnd);
+        $this->less->addStep('>', $this->opEnd);
 
-        $this->less = [
-            'operator',
-            '=' => $this->opEnd,
-            '>' => $this->opEnd,
-        ];
+        $this->greater->addStep('=', $this->opEnd);
 
-        $this->greater = [
-            'operator',
-            '=' => $this->opEnd,
-        ];
-
-        $this->equals = [
-            'operator',
-            '=' => $this->opEnd
-        ];
+        $this->equals->addStep('=', $this->opEnd);
 
         // PUNCTUATION
-
-        $this->punctEnd = [
-            'punctuation'
-        ];
-
         // BRACES
-
-        $this->braceEnd = [
-            'brace'
-        ];
-
         // ENTRY
 
-        $this->entry = [
-            $this->alphaChars => &$this->alphaNumeric,
-            $this->numberChars => &$this->number,
-            $this->punctChars => &$this->punctEnd,
-            $this->braceChars => &$this->braceEnd,
-            $this->opChars1 => &$this->opEnd,
-            '<' => &$this->less,
-            '>' => &$this->greater,
-            '=' => &$this->equals
-        ];
+        $this->entry = new TokenMapNode('entry');
+        $this->entry->addStep($this->alphaChars, $this->alphaNumeric);
+        $this->entry->addStep($this->numberChars, $this->number);
+        $this->entry->addStep($this->punctChars, $this->punctEnd);
+        $this->entry->addStep($this->braceChars, $this->braceEnd);
+        $this->entry->addStep($this->opChars1, $this->opEnd);
+        $this->entry->addStep('<', $this->less);
+        $this->entry->addStep('>', $this->greater);
+        $this->entry->addStep('=', $this->equals);
     }
 }

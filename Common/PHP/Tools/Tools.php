@@ -28,4 +28,10 @@ class Tools {
         }
         return $files;
     }
+
+    // just a wrapper for clunky strpos
+
+    static function within(string $charSet, string $char): bool {
+        return is_string($charSet) ? strpos($charSet, $char) !== false : false;
+    }
 }
