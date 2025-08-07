@@ -105,13 +105,30 @@ sub {
 
 .primitive{
     display:inline-block;
-    background:lightblue;
-    height:1ch;
+    border: 2px solid black;
+    margin: 3px;
+    padding: 3px;
+    background:yellow;
+   
 }
 
-.subExpression{
+.add{
+     display:inline-block;
+    border: 2px solid black;
+    margin: 3px;
+    padding: 3px;
+    font-size: 100px;
+    color:green;
+    background:green;
+}
+
+.expression{
     display:inline-block;
-    color:red;
-    background:lightblue;
-    height:1ch;
+    border: 2px solid black;
+    margin: 3px;
+    padding: 3px;
+    font-size: 100px;
+    color:green;
+    background:yellow;
+    
 }
