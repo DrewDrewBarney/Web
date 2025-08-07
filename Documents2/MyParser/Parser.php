@@ -223,7 +223,7 @@ class WorkoutParser extends Tokeniser {
 
     function acceptToken($tokens, $obligatory) {
         if ($this->tokenIn($tokens)) {
-            $this->getToken();
+            $this->get();
             return true;
         } else {
             if ($obligatory) {
@@ -235,7 +235,7 @@ class WorkoutParser extends Tokeniser {
 
     function acceptTokenType($tokenTypes, $obligatory) {
         if ($this->tokenTypeIn($tokenTypes)) {
-            $this->getToken();
+            $this->get();
             return true;
         } else {
             if ($obligatory) {
@@ -259,7 +259,7 @@ class WorkoutParser extends Tokeniser {
     function duration() {
         if ($this->tokenTypeIn([eTokenTypes::NATURAL_NUMBER, eTokenTypes::DECIMAL_NUMBER], OBLIGATORY_TOKEN)) {
             $value = floatval($this->mToken);
-            $this->getToken();
+            $this->get();
             return $value;
         } else {
             return 0.0;
@@ -269,7 +269,7 @@ class WorkoutParser extends Tokeniser {
     function intensity() {
         if ($this->tokenTypeIn([eTokenTypes::NATURAL_NUMBER, eTokenTypes::DECIMAL_NUMBER], OBLIGATORY_TOKEN)) {
             $value = floatval($this->mToken);
-            $this->getToken();
+            $this->get();
             return $value;
         } else {
             return 0.0;
@@ -308,7 +308,7 @@ class WorkoutParser extends Tokeniser {
     function times() {
         if ($this->tokenTypeIn([eTokenTypes::NATURAL_NUMBER])) {  // optional
             $multiplicand = intval($this->mToken);
-            $this->getToken();
+            $this->get();
             $this->acceptToken(['*', 'x'], OPTIONAL_TOKEN);
             return $this->grow($multiplicand, $this->parentheses());
         } else {
@@ -319,7 +319,7 @@ class WorkoutParser extends Tokeniser {
     function plus() {
         $steps = $this->times();
         while ($this->tokenIn(['+'])) {
-            $this->getToken();
+            $this->get();
             $steps = array_merge($steps, $this->times());
         }
         return $steps;
@@ -329,13 +329,13 @@ class WorkoutParser extends Tokeniser {
 
         if ($this->mToken === 'raw') {
             $this->mIsRaw = true;
-            $this->getToken();
+            $this->get();
             return true;
         }
 
         if ($this->tokenIn(['ru', 'sw', 'bi', 'wa', 'cr'])) {
             $this->mSport = $this->mToken;
-            $this->getToken();
+            $this->get();
             return true;
         }
 
@@ -348,7 +348,7 @@ class WorkoutParser extends Tokeniser {
 
         // prime the pump
         $this->getChar();
-        $this->getToken();
+        $this->get();
         // parse the header
         while ($this->header());
         // parese the steps [] + n([] + )

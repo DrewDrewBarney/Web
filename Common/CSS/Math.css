@@ -98,3 +98,20 @@ sub {
 }
 
 /* end equation formatting styles */
+
+
+
+
+
+.primitive{
+    display:inline-block;
+    background:lightblue;
+    height:1ch;
+}
+
+.subExpression{
+    display:inline-block;
+    color:red;
+    background:lightblue;
+    height:1ch;
+}

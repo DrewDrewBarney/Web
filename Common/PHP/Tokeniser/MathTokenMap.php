@@ -9,7 +9,7 @@ class MathTokenMap extends TokenMap {
     protected string $numberChars = "0123456789";
     protected string $alphaNumericChars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     protected string $punctChars = ".,;:";
-    protected string $opChars1 = "+-*/^!";
+    protected string $opChars1 = "+-*/_^!";
     protected string $braceChars = "()[]{}";
     //
     // THE MAP LOCATIONS

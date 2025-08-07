@@ -3,6 +3,7 @@
 
 class TokenTypes{
     const ATYPICAL = 999;
+    const NULL = 1000;
     const NUMBER = 0;
     const DECIMAL = 1;
     const ALPHA = 2;
@@ -37,6 +38,15 @@ class Token {
         $this->type = $type;
     }
     
+    function isAcceptableType(array $types):bool{
+        return in_array($this->type, $types);
+    }
+    
+    function isAcceptableToken(array $tokens):bool{
+        return in_array($this->token, $tokens);
+    }
+        
+    
     function echo(){
         echo '<h3>' . $this->token . ' </h3> ' . TokenTypes::typeString($this->type) . '<br>';
     }
@@ -44,22 +54,25 @@ class Token {
 
 class Tokeniser {
 
-    private ?TokenMap $map = null;
     private ?StringWalker $text = null;
+    private ?TokenMap $map = null;
     private string $chr = '';
+    private ?Token $token = null;
 
     function __construct(string $text, TokenMap $map) {
         $this->text = new StringWalker($text);
         $this->map = $map;
+        $this->reset();
     }
 
-    function prime(): void {
+    function reset(): void {
         $this->text->start();
         $this->map->start();
+        $this->token = new Token('', TokenTypes::NULL);
         $this->chr = $this->text->get();
     }
 
-    function getToken(): ?Token {
+    function get(): void {
 
         $token = '';
         $this->map->start();
@@ -74,6 +87,12 @@ class Tokeniser {
             $this->chr = $this->text->get();
         };
 
-        return $token === '' ? null : new Token($token, $this->map->type());
+        $this->token = $token === '' ? new Token('', TokenTypes::NULL) : new Token($token, $this->map->type());
     }
+    
+    function token():Token{
+        return $this->token;
+    }
+    
+    
 }
