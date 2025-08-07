@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 class Menu {
@@ -11,17 +12,22 @@ class Menu {
     static ?Tag $div = null;
 
     private static function itemSelected(array $item, string $currentUrl): bool {
-        if ($item['class'] === $currentUrl) {
-            return true;
+
+        if (isset($item['class'])) {
+            if ($item['class'] === $currentUrl) {
+                return true;
+            }
         }
 
-        if (!empty($item['submenu'])) {
+
+        if (isset($item['submenu'])) {
             foreach ($item['submenu'] as $subItem) {
                 if (self::itemSelected($subItem, $currentUrl)) {
                     return true;
                 }
             }
         }
+
 
         return false;
     }
@@ -33,11 +39,11 @@ class Menu {
             $isSelected = self::itemSelected($item, $currentUrl);
             $class = self::MENU_ITEM_CLASS . ($isSelected ? ' ' . self::MENU_SELECTED_ITEM_CLASS : '');
             $caption = $item['caption'];
-            $url = '?page=' . $item['class'];
+            $url = isset($item['class']) ? '?page=' . $item['class'] : '';
 
             $result
-                ->makeChild('li', '', ['class' => $class])
-                ->makeChild('a', $caption, ['class' => self::MENU_LINK_CLASS, 'href' => $url]);
+                    ->makeChild('li', '', ['class' => $class])
+                    ->makeChild('a', $caption, ['class' => self::MENU_LINK_CLASS, 'href' => $url]);
         }
 
         self::$div->addChild($result);
