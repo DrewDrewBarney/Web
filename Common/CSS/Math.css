@@ -117,7 +117,7 @@ sub {
     border: 2px solid black;
     margin: 3px;
     padding: 3px;
-    font-size: 100px;
+    font-size: 20px;
     color:green;
     background:green;
 }
