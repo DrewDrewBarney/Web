@@ -28,32 +28,40 @@ class MathParser {
             $tag = Tag::make('div', $this->tokeniser->token()->token, ['class' => 'primitive']);
             $this->tokeniser->get();
         } else if ($this->tokeniser->token()->isAcceptableToken(['(', '{', '['])) {
-            $tag = Tag::make('div', $this->tokeniser->token()->token, ['class' => 'brace']);
+            $tag = Tag::make('div', 'brace', ['class' => 'brace']);
 
             $this->tokeniser->get();
             $tag->addChild($this->addSubtract());
- 
+
             $this->tokeniser->get();
         }
         return $tag;
     }
 
     function subSuper(): Tag {
-        $tag = Tag::make('div', '', ['class' => 'subSuper']);
-        $tag->addChild($this->primitive());
-        while ($this->tokeniser->token()->isAcceptableToken(['_', '^'])) {
-            $tag->makeChild('div', $this->tokeniser->token()->token);
+        $base = $this->primitive();
+
+        if ($this->tokeniser->token()->isAcceptableToken(['_', '^'])) {
             $this->tokeniser->get();
-            $tag->addChild($this->primitive());
+            $super = $this->subSuper();
+
+            $grid = Tag::make('div', 'subSuperGrid', ['class' => 'subSuperGrid']);
+
+            $grid->makeChild('div');
+            $grid->addChild($super);
+            $grid->addChild($base);
+            $grid->makeChild('div');
+            return $grid;
+        } else {
+            return $base;
         }
-        return $tag;
     }
 
     function divideOver(): Tag {
-        $tag = Tag::make('div', '', ['class' => 'divideOver']);
+        $tag = Tag::make('div', 'divideOver', ['class' => 'divideOver']);
         $tag->addChild($this->subSuper());
         while ($this->tokeniser->token()->isAcceptableToken(['/'])) {
-            $tag->makeChild('div', $this->tokeniser->token()->token);
+            $tag->makeChild('div', '', ['class' => 'fractionDivider']);
             //$this->tokeniser->token()->echo();
             $this->tokeniser->get();
             $tag->addChild($this->subSuper());
@@ -62,10 +70,10 @@ class MathParser {
     }
 
     function timesDivide(): Tag {
-        $tag = Tag::make('div', '', ['class' => 'timesDivide']);
+        $tag = Tag::make('div', 'timesDivide', ['class' => 'binaryOperator']);
         $tag->addChild($this->divideOver());
         while ($this->tokeniser->token()->isAcceptableToken(['÷', '*'])) {
-            $tag->makeChild('div', $this->tokeniser->token()->token);
+            $tag->makeChild('div', $this->tokeniser->token()->token, ['class' => 'operator']);
             //$this->tokeniser->token()->echo();
             $this->tokeniser->get();
             $tag->addChild($this->divideOver());
@@ -74,10 +82,10 @@ class MathParser {
     }
 
     function addSubtract(): Tag {
-        $tag = Tag::make('div', 'addSubtract', ['class' => 'subExpression']);
+        $tag = Tag::make('div', 'addSubtract', ['class' => 'binaryOperator']);
         $tag->addChild($this->timesDivide());
         while ($this->tokeniser->token()->isAcceptableToken(['+', '-'])) {
-            $tag->makeChild('div', $this->tokeniser->token()->token, ['class' => 'addSubtract']);
+            $tag->makeChild('div', $this->tokeniser->token()->token, ['class' => 'operator']);
             //$this->tokeniser->token()->echo();
             $this->tokeniser->get();
             $tag->addChild($this->timesDivide());
@@ -107,7 +115,7 @@ class MathParser {
     }
 }
 
-$parser = new MathParser('2+2');
+$parser = new MathParser('2^2');
 $page = new Page('fred', false);
 $page->form->addChild($parser->evaluate());
 $page->render();

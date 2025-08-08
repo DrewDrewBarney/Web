@@ -101,25 +101,71 @@ sub {
 
 
 
-
-
 .primitive{
-    display:inline-block;
+    display:block;
+    text-align: center;
     border: 2px solid black;
+    margin: 3px;
+    padding: 3px;
+    font-size:30px;
+}
+
+.brace{
+    display:inline-block;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+
+    border-radius: 3ch;
+    margin: 3px;
+    padding: 3px;
+    font-size:10px;
+}
+
+.subSuperGrid {
+    border: 2px solid black;
+   
     margin: 3px;
     padding: 3px;
     background:yellow;
-   
+
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    gap: 0;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7em;
+    margin-left: 2px;
+    vertical-align: middle;
+    display: inline-grid;
 }
 
-.add{
-     display:inline-block;
+.fractionDivider{
+    display:block;
+    background:black;
+    height:4px;
+}
+
+.divideOver{
+    display:inline-block;
+    text-align: center;
     border: 2px solid black;
     margin: 3px;
     padding: 3px;
-    font-size: 20px;
-    color:green;
-    background:green;
+    font-size:10px;
+}
+
+.binaryOperator{
+    display:inline-block;
+    width:fit-content;
+    border: 2px solid black;
+    margin: auto;
+    padding: 3px;
+    font-size: 10px;
+}
+
+.operator{
+    display:inline-block;
+    font-size:30px;
 }
 
 .expression{
@@ -127,8 +173,8 @@ sub {
     border: 2px solid black;
     margin: 3px;
     padding: 3px;
-    font-size: 100px;
-    color:green;
-    background:yellow;
-    
+    font-size: 10px;
+    color:black;
 }
+
+

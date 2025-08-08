@@ -48,6 +48,8 @@ class Tag {
     static public function make(string $typeName, string $inner = "", array $attributes = []): Tag {
         return new Tag($typeName, $inner, $attributes);
     }
+    
+   
 
     public function selfClosing(): bool {
         return in_array($this->typeName, $this->selfClosingTags);
