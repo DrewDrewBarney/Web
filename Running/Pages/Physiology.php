@@ -100,7 +100,17 @@ class Physiology extends Page {
         $article->makeChild('h4', 'Maximum Heart Rate');
         $article->makeChild('p', ' I have seen athletes confound maximum heart rate with the maximum heart rate achieved during routine training. They are different! The latter is easily available on modern devices but is likely to be quite a bit lower than your true maximum heart rate. If you base your zones on this value you may get an easy ride but may not improve as much as you should. ');
         $article->makeChild('p', ' Formula methods provide an approximation to your maximum heart rate. Some are better than others. None are perfect. The most commonly used (and worst) predicts your maximum heart rate to be: ');
+        
+        //
+        $article->addChild(MathParser::card('220-age','', '(in years)'));
+        //
+        
         $article->makeChild('p', 'I believe it is so popular because it is easy to remember and the calculation only requires a simple subtraction. I would not however recommend using this. A better approximation is that developed by Tanaka. It uses: ');
+        
+        //
+        $article->addChild(MathParser::card('209-0.7*age','', '(in years)'));
+        //
+        
         $p = $article->makeChild('p', ' Even better approximations have been developed which also take in to account gender. These approximations are great for predicting the average maximum heart rate for a particular age ');
         $p->makeChild('span', 'in groups of people', ['style' => 'font-weight: bold;font-style: italic;',]);
         $p->makeChild('span', 'particular individual', ['style' => 'font-weight: bold;font-style: italic;',]);
@@ -211,8 +221,24 @@ class Physiology extends Page {
         $article = $this->body->makeChild('article');
 
         $article->makeChild('aside', ' It is remarkable that this relationship seems universal across species and so must represent '
-                . 'something quite fundamental. ', ['class' => '',]);
-        $article->makeChild('p', ' There is a threshold intensity of training, the critical power, below which there is no time limitation of activity. Above this threshold, training is time limited. The more intense the training above this threshold, the shorter the possible duration of activity. It can be shown that a very simple equation describes this relationship, which is commonly referred to as a power curve, and is stated below. ');
+                . 'something quite fundamental. ');
+        $article->makeChild('p', ' There is a threshold intensity of training, the critical power, below which there is no time limitation of activity.'
+                . ' Above this threshold, training is time limited. The more intense the training above this threshold, '
+                . 'the shorter the possible duration of activity. It can be shown that a very simple equation describes this relationship, '
+                . 'which is commonly referred to as a power curve, and is stated below. ');
+        
+        //
+        $card = $article->addChild(MathParser::card('t=w_a/{p-p_c'));
+        //
+        //$article->addChild(MathParser::card('t=p^2-p_c/(2+6/7)'));
+        //
+        
+        $aside = $card->makeChild('aside');
+        $aside->makeChild('div','w<sub>a</sub> = anaerobic');
+        $aside->makeChild('div', 'two');
+        
+        
+        
         $article->makeChild('sub', 'c');
         $article->makeChild('sub', 'a');
         $article->makeChild('sub', 'c');
@@ -266,5 +292,6 @@ class Physiology extends Page {
         $article->makeChild('h3', 'Now Mix Things Up');
         $article->makeChild('p', ' We have covered the physiological basis of training zones and how, for endurance athletes, the best choice of basis for these is lactate threshold (pace, power, heart rate). With this objective basis we can reliably know where the intensity of our training is positioned in relation to this important datum. It allows us to both target lactate threshold and just as importantly to avoid it. It allows us to calculate our training load from a wide variety of activities. This informs our future training. ');
         $article->makeChild('p', '.');
+        
     }
 }

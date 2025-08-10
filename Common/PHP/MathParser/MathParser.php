@@ -1,11 +1,12 @@
 <?php
 
-include_once '../../../Common/PHP/Context.php';
+/*
+  include_once '../../../Common/PHP/Context.php';
 
-Context::loadClasses([Context::relativeRootURL() . 'Common']);
-Context::setCSSpaths(['Common/CSS/']);
+  Context::loadClasses([Context::relativeRootURL() . 'Common']);
+  Context::setCSSpaths(['Common/CSS/']);
 
-
+ */
 
 class MathParser {
 
@@ -27,11 +28,11 @@ class MathParser {
     function primitive(): Tag {
         $tag = null;
         if ($this->tokeniser->token()->isAcceptableType([TokenTypes::NUMBER, TokenTypes::DECIMAL, TokenTypes::ALPHANUMERIC])) {
-            $tag = Tag::make('div', $this->tokeniser->token()->prettyToken, ['class' => 'primitive']);
+            $tag = Tag::make('span', $this->tokeniser->token()->prettyToken, ['class' => 'primitive']);
             $this->tokeniser->get();
         } else if ($this->tokeniser->token()->isAcceptableToken(['(', '{', '['])) {
             $class = $this->tokeniser->token()->isAcceptableToken(['(', '[']) ? 'brace' : 'invisibleBrace';
-            $tag = Tag::make('div', '', ['class' => $class]);
+            $tag = Tag::make('span', '', ['class' => $class]);
 
             $this->tokeniser->get();
             $tag->addChild($this->expression());
@@ -41,24 +42,25 @@ class MathParser {
         return $tag;
     }
 
+   
+
     function subSuper(): Tag {
+
         $base = $this->primitive();
 
         if ($this->tokeniser->token()->isAcceptableToken(['_', '^'])) {
+
+            $token = $this->tokeniser->token()->token;
             $this->tokeniser->get();
-            $super = $this->subSuper();
 
-            $grid = Tag::make('div', '', ['class' =>'subSuperGrid']);
-
-            $grid->makeChild('div', '', ['class' => 'empty_1_1']);
-            $grid->makeChild('div', '', ['class' => 'empty_2_2']);
-
-            $grid->addChild($super, ['class' => 'superScript'], true);
-            $grid->addChild($base, ['class' => 'base'], true);
-            return $grid;
-        } else {
-            return $base;
+            if ($token === '^') {
+                $base->makeChild('sup')->addChild($this->subSuper());
+            } else if ($token === '_') {
+                $base->makeChild('sub')->addChild($this->subSuper());
+            }
         }
+
+        return $base;
     }
 
     function divideOver(): Tag {
@@ -67,7 +69,7 @@ class MathParser {
 
         if ($this->tokeniser->token()->isAcceptableToken(['/'])) {
             $this->tokeniser->get();
-            $fraction = Tag::make('div', '', ['class' => 'divideOver']);
+            $fraction = Tag::make('span', '', ['class' => 'divideOver']);
             $denominator = $this->divideOver();
             $fraction->addChild($numerator);
             $fraction->makeChild('fraction', '', ['class' => 'fractionDivider']);
@@ -79,10 +81,9 @@ class MathParser {
     }
 
     function timesDivide(): Tag {
-        $tag = Tag::make('div', '', ['class' => 'binaryOperator']);
-        $tag->addChild($this->divideOver());
+        $tag = $this->divideOver();
         while ($this->tokeniser->token()->isAcceptableToken(['÷', '*'])) {
-            $tag->makeChild('div', $this->tokeniser->token()->prettyToken, ['class'=>'binaryOperator']);
+            $tag->makeChild('span', $this->tokeniser->token()->prettyToken, ['class' => 'binary']);
 
             $this->tokeniser->get();
             $tag->addChild($this->divideOver());
@@ -91,11 +92,9 @@ class MathParser {
     }
 
     function addSubtract(): Tag {
-        $tag = Tag::make('div', '', ['class'=>'binaryOperator']);
-        $tag->addChild($this->timesDivide());
+        $tag = $this->timesDivide();
         while ($this->tokeniser->token()->isAcceptableToken(['+', '-'])) {
-            $tag->makeChild('div', $this->tokeniser->token()->prettyToken, ['class'=>'binaryOperator']);
-
+            $tag->makeChild('span', $this->tokeniser->token()->prettyToken, ['class' => 'binary']);
             $this->tokeniser->get();
             $tag->addChild($this->timesDivide());
         }
@@ -103,12 +102,9 @@ class MathParser {
     }
 
     function expression(): Tag {
-        $tag = Tag::make('div', '', ['class' => 'expression']);
-
-        $tag->addChild($this->addSubtract());
+        $tag = $this->addSubtract();
         while ($this->tokeniser->token()->isAcceptableToken(['=', '<=', '>=', '<>'])) {
-            $tag->makeChild('div', $this->tokeniser->token()->prettyToken, ['class' => 'binaryOperator']);
-
+            $tag->makeChild('span', $this->tokeniser->token()->prettyToken, ['class' => 'binary']);
             $this->tokeniser->get();
             $tag->addChild($this->addSubtract());
         }
@@ -116,25 +112,31 @@ class MathParser {
     }
 
     function evaluate(): Tag {
-        
-        $displayCard = Tag::make('div','',['class'=>'displayCard']);
 
         $this->tokeniser->reset();
         $this->tokeniser->get();
-        
-        $displayCard->addChild($this->expression());
 
-        return $displayCard;
+        return $this->expression();
     }
-    
-    
-    static function asTag(string $equation):Tag{
+
+    static function asTag(string $equation): Tag {
         return (new MathParser($equation))->evaluate();
+    }
+
+    static function card(string $equation, string $pre = '', string $post = ''): Tag {
+        $flex = Tag::make('div', '', ['class' => 'center-x']);
+        $card = $flex->makeChild('div', '', ['class' => 'center-x margin-bottom-2ch'])->makeChild('div', '', ['class' => 'card']);
+        $card->makeChild('div', $pre, ['class' => 'expression']);
+        $card->addChild(MathParser::asTag($equation));
+        $card->makeChild('div', $post, ['class' => 'expression']);
+        return $flex;
     }
 }
 
-
+/*
 $page = new Page('fred', false);
 $page->form->addChild(MathParser::asTag('({2+2^3}/{2+1}/3 + 1)'));
 $page->render();
+ * 
+ */
 

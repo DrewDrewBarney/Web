@@ -192,3 +192,18 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background: #0d45a5;
 }
+
+
+
+sub {
+    vertical-align: -0.25em;
+    font-size: 0.75em;
+    margin-left:-0.25em;
+}
+
+sup {
+    vertical-align: 0.5em;
+    font-size: 0.75em;
+    margin-left: -0.25em;
+}
+
