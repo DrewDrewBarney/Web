@@ -1,180 +1,157 @@
-/* EQUATION STYLES */
 
-tr td.equationDividingLine {
-    padding: 0px;
-    margin: 2px;
-    background-color: black;
-    height: 3px;
-}
-
-tr td.equationDatum {
-    text-align: center;
-}
-
-tr td.leftBrace {
-    border-width: 2px;
-    border-style: solid none solid solid;
-}
-
-tr td.rightBrace {
-    border-width: 2px;
-    border-style: solid solid solid none;
-}
-
-.formulaDiv {
-    width: 100%;
-    margin: 2ch 0ch;
-    display: inline-flex;
-    flex-direction: row;
-    vertical-align: central;
-    justify-content: space-between;
-    background-color: inherit;
-}
-
-.formulaBox {
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: center;
-
-    margin: 0ch;
-    padding: 1.5ch;
-    font-weight: bold;
-    box-shadow: 2px 3px 9px darkgray;
-    border-radius: 15px;
-}
-
-.formulaAside {
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0px;
-    margin-left:2ch;
-    background-color: inherit;
-    color: darkgray;
-}
-
-.formulaAsideLine {
-    margin: 0ch;
-    padding: 0.5ch 0ch;
-    text-align: left;
-
-    font-weight: bold;
-    font-size: 12px;
-
-    background-color: inherit;
-}
-
-.formulaAsideDummy {
-    vertical-align: central;
-    margin: 0ch;
-    padding: 1.5ch;
-    text-align: left;
-
-    font-weight: bold;
-    font-size: 12px;
-
-    background-color: white;
-    color: white;
-}
-
-
-
-sup {
-    vertical-align: top;
-    position: relative;
-    top: 0px;
-    font-size: 0.66em;
-}
-
-sub {
-    display:inline-block;
-    margin:0ch;
-    padding:0ch;
-    position: relative;
-    bottom: -0.33ch;
-    font-size: 0.6em;
-    letter-spacing:0ch;
-    background:yellow;
-}
-
-/* end equation formatting styles */
 
 
 
 .primitive{
-    display:block;
+    display:inline-block;
     text-align: center;
-    border: 2px solid black;
-    margin: 3px;
-    padding: 3px;
-    font-size:30px;
+    vertical-align: middle;
+
+    margin:0px;
+    padding:0px;
+    border:none;
 }
 
 .brace{
     display:inline-block;
-    border-left: 2px solid black;
-    border-right: 2px solid black;
+    text-align: center;
+    vertical-align: middle;
 
-    border-radius: 3ch;
-    margin: 3px;
-    padding: 3px;
-    font-size:10px;
+    margin:0px;
+    border: 0px;
+    border-left: 3px solid black;
+    border-right: 3px solid black;
+    border-radius: 1ch;
+
+    padding:0.25ch;
+
+    font-size:inherit;
 }
 
-.subSuperGrid {
-    border: 2px solid black;
-   
-    margin: 3px;
-    padding: 3px;
-    background:yellow;
-
-    grid-template-columns: auto auto;
-    grid-template-rows: auto auto;
-    gap: 0;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.7em;
-    margin-left: 2px;
+.invisibleBrace{
+    display:inline-block;
+    text-align: center;
     vertical-align: middle;
-    display: inline-grid;
+
+    margin:0px;
+    border: 0px;
+   
+
+    padding:0ch;
+
+    font-size:inherit;
 }
 
 .fractionDivider{
     display:block;
     background:black;
-    height:4px;
+    height:3px;
+
 }
 
 .divideOver{
     display:inline-block;
     text-align: center;
-    border: 2px solid black;
-    margin: 3px;
-    padding: 3px;
-    font-size:10px;
+    vertical-align: middle;
+    
+    font-size:inherit;
+    margin:0px;
+    padding:0px;
+    border:0px;
 }
 
 .binaryOperator{
     display:inline-block;
-    width:fit-content;
-    border: 2px solid black;
-    margin: auto;
-    padding: 3px;
-    font-size: 10px;
+    text-align: center;
+    vertical-align: middle;
+
+    font-size: inherit;
+    margin:0px;
+    padding:0px;
+    border:0px;
+   
+
 }
 
 .operator{
     display:inline-block;
-    font-size:30px;
+    vertical-align: inherit;
+    font-size:inherit;
+
+    border: none;
+    margin: 0px;
+    padding: 0px;
+    font-size: inherit;
 }
 
 .expression{
     display:inline-block;
-    border: 2px solid black;
-    margin: 3px;
-    padding: 3px;
-    font-size: 10px;
+    text-align: center;
+    vertical-align:middle;
+    border: none;
+    margin: 0px;
+    padding: 0px;
+    font-size: 30px;
     color:black;
+}
+
+.displayCard{
+    display:inline-block;
+    text-align: center;
+    vertical-align:middle;
+    width:fit-content;
+    border: none;
+    margin: 5ch auto 5ch auto;
+    padding: 40px;
+    font-size: 30px;
+    color:black;
+    border-radius: 3ch;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+}
+
+
+.subSuperGrid {
+
+    display: inline-grid;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+
+    border: inherit;
+
+    margin: inherit;
+    padding: inherit;
+
+
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+
+
+
+}
+
+.base{
+    grid-row:2;
+    grid-column:1;
+}
+
+.superScript{
+    grid-row:1;
+    grid-column:2;
+    font-size:0.66em;
+}
+
+.empty_1_1{
+    grid-row: 1;
+    grid-column: 1;
+
+}
+
+
+.empty_2_2{
+    grid-row:2;
+    grid-column:2;
+
 }
 
 

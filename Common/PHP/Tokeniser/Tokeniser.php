@@ -23,19 +23,27 @@ class TokenTypes{
         self::PUNCT => 'punctuation'
     ];
     
+    
     static function typeString(int $type):string{
         return isset(self::MAP[$type]) ? self::MAP[$type] : self::MAP[self::ATYPICAL];
     }
 }
 
 class Token {
+    
+    const SWAPS = [
+        '*'=>'x'
+    ];
+    
 
     public string $token = '';
     public int $type = TokenTypes::ATYPICAL;
+    public string $prettyToken = '';
 
     function __construct(string $token, int $type) {
         $this->token = $token;
         $this->type = $type;
+        $this->prettyMap();
     }
     
     function isAcceptableType(array $types):bool{
@@ -44,6 +52,14 @@ class Token {
     
     function isAcceptableToken(array $tokens):bool{
         return in_array($this->token, $tokens);
+    }
+    
+    function prettyMap():void{
+        if (isset(self::SWAPS[$this->token])){
+            $this->prettyToken = self::SWAPS[$this->token];
+        } else {
+            $this->prettyToken = $this->token;
+        }
     }
         
     
@@ -86,6 +102,8 @@ class Tokeniser {
             $token .= $this->chr;
             $this->chr = $this->text->get();
         };
+        
+        
 
         $this->token = $token === '' ? new Token('', TokenTypes::NULL) : new Token($token, $this->map->type());
     }

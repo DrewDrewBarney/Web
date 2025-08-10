@@ -25,6 +25,10 @@ class MathTokenMap extends TokenMap {
     protected ?TokenMapNode $punctEnd = null;
     protected ?TokenMapNode $braceEnd = null;
 
+    const CHAR_SWAPS = [
+        '*' => 'x'
+    ];
+
     function __construct() {
 
         // CONSTRUCT ALL THE MAP LOCATIONS
@@ -72,4 +76,6 @@ class MathTokenMap extends TokenMap {
         $this->entry->addStep('>', $this->greater);
         $this->entry->addStep('=', $this->equals);
     }
+
+   
 }
