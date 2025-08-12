@@ -102,13 +102,13 @@ class Physiology extends Page {
         $article->makeChild('p', ' Formula methods provide an approximation to your maximum heart rate. Some are better than others. None are perfect. The most commonly used (and worst) predicts your maximum heart rate to be: ');
         
         //
-        $article->addChild(MathParser::card('220-age','', '(in years)'));
+        $article->addChild(MathParser::card('220-age,"(in years)"'));
         //
         
         $article->makeChild('p', 'I believe it is so popular because it is easy to remember and the calculation only requires a simple subtraction. I would not however recommend using this. A better approximation is that developed by Tanaka. It uses: ');
         
         //
-        $article->addChild(MathParser::card('209-0.7*age','', '(in years)'));
+        $article->addChild(MathParser::card('209-0.7*age, (in years)'));
         //
         
         $p = $article->makeChild('p', ' Even better approximations have been developed which also take in to account gender. These approximations are great for predicting the average maximum heart rate for a particular age ');
@@ -237,17 +237,11 @@ class Physiology extends Page {
         $aside->makeChild('div','w<sub>a</sub> = anaerobic');
         $aside->makeChild('div', 'two');
         
+          //
+        $card = $article->addChild(MathParser::card('1/2+1'));
+        //
         
-        
-        $article->makeChild('sub', 'c');
-        $article->makeChild('sub', 'a');
-        $article->makeChild('sub', 'c');
-        $article->makeChild('div', '', ['style' => 'clear:both;',]);
-        $p = $article->makeChild('p', ' w');
-        $p->makeChild('sub', 'a');
-        $article->makeChild('sub', 'c');
-        $article->makeChild('sub', 'a');
-        $article->makeChild('sub', 'c');
+      
         $p = $article->makeChild('p', ' We just need to fit a line between these points. The gradient is w');
         $p->makeChild('sub', 'a');
         $p->makeChild('sub', 'c');

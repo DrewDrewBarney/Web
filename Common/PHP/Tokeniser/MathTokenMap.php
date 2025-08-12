@@ -11,6 +11,8 @@ class MathTokenMap extends TokenMap {
     protected string $punctChars = ".,;:";
     protected string $opChars1 = "+-*/_^!";
     protected string $braceChars = "()[]{}";
+    protected string $stringChars = " 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+-*/_^!()[]{}";
+            
     //
     // THE MAP LOCATIONS
     //
@@ -24,6 +26,8 @@ class MathTokenMap extends TokenMap {
     protected ?TokenMapNode $equals = null;
     protected ?TokenMapNode $punctEnd = null;
     protected ?TokenMapNode $braceEnd = null;
+    protected ?TokenMapNode $string = null;
+    protected ?TokenMapNode $stringEnd = null;
 
     const CHAR_SWAPS = [
         '*' => 'x'
@@ -42,6 +46,8 @@ class MathTokenMap extends TokenMap {
         $this->equals = $this->opEnd;
         $this->punctEnd = new TokenMapNode(TokenTypes::PUNCT);
         $this->braceEnd = new TokenMapNode(TokenTypes::BRACE);
+        $this->string = new TokenMapNode(TokenTypes::STRING);
+        $this->stringEnd = new TokenMapNode(TokenTypes::STRING);
 
         // DEFINE HOW THE LOCATIONS LINK TO OTHER LOCATIONS
         // 
@@ -64,6 +70,9 @@ class MathTokenMap extends TokenMap {
 
         // PUNCTUATION
         // BRACES
+        // STRING
+        $this->string->addStep($this->stringChars, $this->string);
+        $this->string->addStep('"', $this->stringEnd);
         // ENTRY
 
         $this->entry = new TokenMapNode('entry');
@@ -75,6 +84,7 @@ class MathTokenMap extends TokenMap {
         $this->entry->addStep('<', $this->less);
         $this->entry->addStep('>', $this->greater);
         $this->entry->addStep('=', $this->equals);
+        $this->entry->addStep('"', $this->string);
     }
 
    

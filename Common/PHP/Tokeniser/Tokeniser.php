@@ -1,40 +1,10 @@
 <?php
 
-
-class TokenTypes{
-    const ATYPICAL = 999;
-    const NULL = 1000;
-    const NUMBER = 0;
-    const DECIMAL = 1;
-    const ALPHA = 2;
-    const ALPHANUMERIC = 3;
-    const OPERATOR = 4;
-    const BRACE = 5;
-    const PUNCT = 6;
-    
-    const MAP = [
-        self::ATYPICAL => 'atypical',
-        self::NUMBER => 'number',
-        self::DECIMAL => 'decimal',
-        self::ALPHA => 'alpha',
-        self::ALPHANUMERIC => 'alphanumeric',
-        self::OPERATOR => 'operator',
-        self::BRACE => 'brace',
-        self::PUNCT => 'punctuation'
-    ];
-    
-    
-    static function typeString(int $type):string{
-        return isset(self::MAP[$type]) ? self::MAP[$type] : self::MAP[self::ATYPICAL];
-    }
-}
-
 class Token {
-    
+
     const SWAPS = [
-        '*'=>'x'
+        '*' => 'x',
     ];
-    
 
     public string $token = '';
     public int $type = TokenTypes::ATYPICAL;
@@ -45,25 +15,19 @@ class Token {
         $this->type = $type;
         $this->prettyMap();
     }
-    
-    function isAcceptableType(array $types):bool{
-        return in_array($this->type, $types);
-    }
-    
-    function isAcceptableToken(array $tokens):bool{
-        return in_array($this->token, $tokens);
-    }
-    
-    function prettyMap():void{
-        if (isset(self::SWAPS[$this->token])){
+
+    function prettyMap(): void {
+        
+        if (substr($this->token, 0, 1) === '"' && substr($this->token, -1, 1) === '"'){ // token is a string
+            $this->prettyToken = substr($this->token, 1, strlen($this->token) - 2);
+        } else if (isset(self::SWAPS[$this->token])) {
             $this->prettyToken = self::SWAPS[$this->token];
         } else {
             $this->prettyToken = $this->token;
         }
     }
-        
-    
-    function echo(){
+
+    function echo() {
         echo '<h3>' . $this->token . ' </h3> ' . TokenTypes::typeString($this->type) . '<br>';
     }
 }
@@ -102,15 +66,12 @@ class Tokeniser {
             $token .= $this->chr;
             $this->chr = $this->text->get();
         };
-        
-        
 
-        $this->token = $token === '' ? new Token('', TokenTypes::NULL) : new Token($token, $this->map->type());
+        $this->token = $token === '' ? new Token('Token is null', TokenTypes::NULL) : new Token($token, $this->map->type());
     }
-    
-    function token():Token{
+
+   
+    function token(): ?Token {
         return $this->token;
     }
-    
-    
 }

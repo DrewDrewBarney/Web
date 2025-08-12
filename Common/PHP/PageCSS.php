@@ -63,12 +63,17 @@ class PageCSS {
 
         return $css;
     }
+    
+    static protected function errorCSS(): string{
+        return ".error{color:red;}";
+    }
 
     static function asTag(): Tag {
         return Tag::make('style',
                         self::generateSpacingsCSS()
                         . self::generatePositionsCSS()
                         . self::returnEmptiesCSS()
+                .self::errorCSS()
         );
     }
 }
