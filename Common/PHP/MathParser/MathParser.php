@@ -1,6 +1,6 @@
 <?php
 
-const debug = false;
+const debug = true;
 
 if (debug) {
     include_once '../../../Common/PHP/Context.php';
@@ -20,55 +20,85 @@ class MathParser {
     function tokenise(): void {
         $this->tokeniser->reset();
         $this->tokeniser->get();
-        while ($this->tokeniser->token()->type !== TokenTypes::NULL) {
+        while ($this->tokeniser->token()->type !== MathToken::NULL) {
             $this->tokeniser->token()->echo();
             $this->tokeniser->get();
         }
     }
 
     function primitive(): Tag {
-        $primitive = Tag::make('span', '', ['class' => 'primitiveContainer']);
+        $result = null;
 
-        if (TokenTypes::isAcceptableType($this->tokeniser->token(), [TokenTypes::NUMBER, TokenTypes::DECIMAL, TokenTypes::ALPHANUMERIC])) {
-            $primitive->makeChild('span', $this->tokeniser->token()->prettyToken, ['class' => 'primitive']);
+        // isAcceptableToken is more specific than isAcceptableType
+        // so it should get first bite of the cherry
+        if ($this->tokeniser->token()->rightType([MathToken::NUMBER, MathToken::DECIMAL, MathToken::ALPHA_NUMERIC])) {
+            $result = Tag::make('span', $this->tokeniser->token()->prettyToken, ['class' => 'primitive']);
             $this->tokeniser->get();
-        } else if (TokenTypes::isAcceptableType($this->tokeniser->token(), [TokenTypes::STRING])){
-            $primitive->makeChild('span', $this->tokeniser->token()->prettyToken, ['class' => 'primitive']);
+        } else if ($this->tokeniser->token()->rightType([MathToken::STRING])) {
+            $result = Tag::make('span', $this->tokeniser->token()->prettyToken, ['class' => 'primitive']);
             $this->tokeniser->get();
-              
-        } else if (TokenTypes::isAcceptableToken($this->tokeniser->token(), ['(', '{', '['])) {
-            $class = TokenTypes::isAcceptableToken($this->tokeniser->token(), ['(', '[']) ? 'brace' : 'invisibleBrace';
-            $brace = $primitive->makeChild('span', '', ['class' => $class]);
             $this->tokeniser->get();
-            $brace->addChild($this->expression());
-            $this->tokeniser->get(); // get the trailing bracket
+        } else {
+            // WTF
+            $result = Tag::make('span', 'WTF');
         }
 
-        return $primitive;
+        return $result;
+    }
+
+    function brace(): tag {
+        if ($this->tokeniser->token()->rightToken(['(', '{', '['])) {
+            $class = $this->tokeniser->token()->rightToken(['(', '[']) ? 'brace' : 'invisibleBrace';
+            $result = Tag::make('span', '', ['class' => $class]);
+            $this->tokeniser->get();
+            $result->addChild($this->expression());
+            $this->tokeniser->get(); // get the trailing bracket
+        } else {
+            $result = Tag::make('span', '', ['class' => 'mathBland']);
+            $result->addChild($this->primitive());
+        }
+        return $result;
     }
 
     function postfix(): tag {
         $postfix = Tag::make('span', '', ['class' => 'postfix']);
-        $postfix->addChild($this->primitive());
+        $postfix->addChild($this->brace());
 
-        while (TokenTypes::isAcceptableToken($this->tokeniser->token(), ['!'])) {
+        while ($this->tokeniser->token()->rightToken(['!'])) {
             $postfix->makeChild('span', $this->tokeniser->token()->prettyToken, ['class' => 'postfix']);
             $this->tokeniser->get();
         }
-
-
         return $postfix;
+    }
+
+    function prefix(): tag {
+        $prefix = Tag::make('span', '', ['class' => 'symbolContainer']);
+
+        if ($this->tokeniser->token()->rightToken(['root', '-', '+'])) {
+            if ($this->tokeniser->token()->rightToken(['root'])) {
+                $this->tokeniser->get();
+                $prefix->makeChild('span', MathSymbols::root(50), ['class' => 'symbol']);
+                $prefix->makeChild('span', '', ['class' => 'vinculum'])->addChild($this->postfix());
+            } else {
+                $prefix->makeChild('span', $this->tokeniser->token()->prettyToken, ['class' => 'prefix']);
+                $this->tokeniser->get();
+                $prefix->addChild($this->postfix());
+            }
+        } else {
+            $prefix->addChild($this->postfix());
+        }
+        return $prefix;
     }
 
     function subscript(): Tag {
 
         $subSuper = Tag::make('span', '', ['class' => 'subscriptContainer']);
-        $subSuper->addChild($this->postfix());
+        $subSuper->addChild($this->prefix());
 
-        while (TokenTypes::isAcceptableToken($this->tokeniser->token(), ['_'])) {
+        while ($this->tokeniser->token()->rightToken(['_'])) {
             $token = $this->tokeniser->token()->token;
             $this->tokeniser->get();
-            $subSuper->makeChild('sub')->addChild($this->subscript(), ['class' => 'subScript']);
+            $subSuper->makeChild('sub', '', ['class' => 'subScript'])->addChild($this->subscript());
         }
 
         return $subSuper;
@@ -79,10 +109,10 @@ class MathParser {
         $subSuper = Tag::make('span', '', ['class' => 'superscriptContainer']);
         $subSuper->addChild($this->subscript());
 
-        while (TokenTypes::isAcceptableToken($this->tokeniser->token(), ['^'])) {
+        while ($this->tokeniser->token()->rightToken(['^'])) {
             $token = $this->tokeniser->token()->token;
             $this->tokeniser->get();
-            $subSuper->makeChild('sup')->addChild($this->superscript(), ['class' => 'superScript']);
+            $subSuper->makeChild('sup', '', ['class' => 'superScript'])->addChild($this->superscript());
         }
 
         return $subSuper;
@@ -92,7 +122,7 @@ class MathParser {
         $divide = Tag::make('span', '', ['class' => 'divide']);
         $divide->addChild($this->superscript());
 
-        while (TokenTypes::isAcceptableToken($this->tokeniser->token(), ['/'])) {
+        while ($this->tokeniser->token()->rightToken(['/'])) {
             $divide->makeChild('span', '', ['class' => 'dividingLine']);
             $this->tokeniser->get();
             $divide->addChild($this->superscript());
@@ -105,7 +135,7 @@ class MathParser {
         $timesDivide = Tag::make('span', '', ['class' => 'timesDivide']);
         $timesDivide->addChild($this->divide());
 
-        while (TokenTypes::isAcceptableToken($this->tokeniser->token(), ['*', '÷'])) {
+        while ($this->tokeniser->token()->rightToken(['*', '÷'])) {
             $timesDivide->makeChild('span', $this->tokeniser->token()->prettyToken, ['class' => 'binary']);
 
             $this->tokeniser->get();
@@ -118,7 +148,7 @@ class MathParser {
         $addSubtract = Tag::make('span', '', ['class' => 'addSubtract']);
         $addSubtract->addChild($this->timesDivide());
 
-        while (TokenTypes::isAcceptableToken($this->tokeniser->token(), ['+', '-'])) {
+        while ($this->tokeniser->token()->rightToken(['+', '-', '+-', '-+', '--', '++'])) {
             $addSubtract->makeChild('span', $this->tokeniser->token()->prettyToken, ['class' => 'operator']);
             $this->tokeniser->get();
             $addSubtract->addChild($this->timesDivide());
@@ -130,7 +160,7 @@ class MathParser {
         $expression = Tag::make('span', '', ['class' => 'expression']);
         $expression->addChild($this->addSubtract());
 
-        while (TokenTypes::isAcceptableToken($this->tokeniser->token(), ['=', '<=', '>=', '<>'])) {
+        while ($this->tokeniser->token()->rightToken(['=', '<=', '>=', '<>', '<', '>', '<<', '>>'])) {
             $expression->makeChild('span', $this->tokeniser->token()->prettyToken, ['class' => 'binary']);
             $this->tokeniser->get();
             $expression->addChild($this->addSubtract());
@@ -143,7 +173,7 @@ class MathParser {
         $expressions = Tag::make('span', '', ['class' => 'expression']);
         $expressions->addChild($this->expression());
 
-        while (TokenTypes::isAcceptableToken($this->tokeniser->token(), [','])) {
+        while ($this->tokeniser->token()->rightToken([','])) {
             $this->tokeniser->get();
             $expressions->addChild($this->expression());
         }
@@ -156,7 +186,7 @@ class MathParser {
         $this->tokeniser->get();
 
         $expressions = $this->expressions();
-        if ($this->tokeniser->token()->type !== TokenTypes::NULL) {
+        if ($this->tokeniser->token()->type !== MathToken::NULL) {
             $expressions->makeChild('span', 'error (expression finished before last token)', ['class' => 'error']);
         }
 
@@ -167,19 +197,76 @@ class MathParser {
         return (new MathParser($equation))->evaluate();
     }
 
-    static function card(string $equation, string $pre = '', string $post = ''): Tag {
-        $flex = Tag::make('div', '', ['class' => 'center-x expression']);
-        $card = $flex->makeChild('div', '', ['class' => 'center-x margin-bottom-2ch expression'])->makeChild('div', '', ['class' => 'card']);
-        $card->makeChild('span', $pre, ['class' => 'expression']);
+    static function card(string $equation, array $legend = []): Tag {
+        $flex = Tag::make('span', '', ['class' => 'center-x']);
+        $card = $flex->makeChild('div', '', ['class' => 'margin-bottom-2ch card expression']);
+
+        //$flex->makeChild('span', $pre, ['class' => 'expression']);
         $card->addChild(MathParser::asTag($equation));
-        $card->makeChild('span', $post, ['class' => 'expression']);
+        $legendBox = $card->makeChild('div', '', ['class' => '']);
+        foreach ($legend as $line) {
+            $legendBox->makeChild('div', $line, ['class' => 'legend']);
+        }
+        //$flex->makeChild('span', $post, ['class' => 'expression']);
         return $flex;
     }
 }
 
 if (debug) {
-    $page = new Page('fred', false);
-    $page->form->addChild(MathParser::card('(2_i_j^n^q+100/3)'));
+
+    $tests = [
+        // A. Radicals + superscripts
+        "root(b^2 - 4*a*c)",
+        "root((a+b)^2)",
+        "(1/x)^n",
+        "root(x^x)^x",
+        "root(1 + root(1 + root(x)))",
+        // B. Script order & nesting
+        "a^b_c",
+        "a_b^c",
+        "(a_b)^c",
+        "a^(b_c)",
+        "x^{y_z}",
+        "x_{y^z}",
+        "a^{b^{c}}",
+        "a_{b_{c}}",
+        // C. Fractions with tall parts
+        "(a/b)^(c/d)",
+        "((a^2 + b^2)/(c + d^3))^k",
+        "root((1 + 1/x) / (1 - 1/x))",
+        // D. Unary vs binary minus
+        "-a^2", // prefix minus
+        "(-a)^2",
+        "a-(-b)",
+        "-(a+b)",
+        "a * (-b)",
+        // E. Multiplication with *
+        "a * b",
+        "a * (b+c)",
+        // F. Multi-char operators
+        "a <= b",
+        "a >= b",
+        "a << b",
+        "a >> b",
+        "a <> b",
+        // G. Factorials and scripts
+        "n!^2",
+        "(n!)^2",
+        "n!_k",
+        // H. Tall delimiters
+        "((a+b))^c",
+        "[(a+b)/(c+d)]^e",
+        "{a + (b/c)}^d",
+            // I. Mixed prose + inline math
+            //"Let f(x)=x^2 for x>=0; then root(x)^3 grows."
+    ];
+
+    $page = new Page('MathParser', false);
+    foreach ($tests as $expression) {
+        $page->form->addChild(MathParser::card($expression));
+    }
+
+
     $page->render();
 }
 

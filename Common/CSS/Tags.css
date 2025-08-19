@@ -207,3 +207,10 @@ sup {
     margin-left: -0.25em;
 }
 
+/*
+span {
+    display: inline-flex;
+    align-items: center; /* vertically centers children 
+    justify-content: flex-start; /* optional: controls horizontal alignment 
+}
+*/

@@ -68,7 +68,7 @@ class PageCSS {
         return ".error{color:red;}";
     }
 
-    static function asTag(): Tag {
+    static function currentCssTag(): Tag {
         return Tag::make('style',
                         self::generateSpacingsCSS()
                         . self::generatePositionsCSS()
@@ -76,4 +76,6 @@ class PageCSS {
                 .self::errorCSS()
         );
     }
+    
+  
 }

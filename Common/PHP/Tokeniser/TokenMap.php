@@ -1,13 +1,19 @@
 <?php
 
 class TokenMap {
+    
+    //
+    // TOKEN TYPES
+    //
+    const NULL = 'NULL';
+    const NO_TYPE = 'NO_TYPE';
 
     protected ?TokenMapNode $entry = null;
     protected ?TokenMapNode $cursor = null;
-    protected $tokenType = TokenTypes::ATYPICAL;
+    protected $tokenType = self::NO_TYPE;
 
     function __construct() {
-        $this->entry = new TokenMapNode(TokenTypes::ATYPICAL);
+        $this->entry = new TokenMapNode(self::NO_TYPE);
         $this->start();
     }
 

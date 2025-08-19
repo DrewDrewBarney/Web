@@ -14,6 +14,7 @@ class Tag {
     ];
 
     private string $typeName = '';
+    private string $inner = '';
     private array $children = [];
     private array $attributes = [];
     private array $selfClosingTags = ['area', 'base', 'br', 'colembed', 'hr', 'img', 'link', 'meta', 'param', 'source', 'track', 'wbr', /* ZWIFT */ 'tag', 'textevent'];
@@ -22,30 +23,54 @@ class Tag {
     private bool $literal = false;
     private bool $zeroTheTab = false;
 
-    public function __construct(string $typeName, ?array $attributes = null) {
-        $this->children = [];
-
+    public function __construct(string $typeName, string $inner = "", ?array $attributes = null) {
+        //$this->domID = uniqid();
         $this->typeName = $typeName;
+        //$this->selfClosing = in_array($this->typeName, $this->selfClosingTags);
 
         $this->attributes = $attributes ? $attributes : [];
 
-        // update from the GET/POST
         if ($this->value()) {
             $this->attributes["value"] = $this->value();
         }
+
+        if ($this->selfClosing()) {
+            if ($inner !== '') {
+                throw new Exception("a self-closing tag of type $this->typeName should have no inner!");
+            }
+        } else {
+            $this->inner = $inner;
+        }
+        $this->children = [];
     }
 
-    // L E G A C Y
-    //////////////
-    static public function make(string $typeName, string $text = '', array $attributes = []): Tag {
-        $tag = new Tag($typeName, $attributes);
-        $tag->addText($text);
-        return $tag;
+    static public function make(string $typeName, string $inner = "", array $attributes = []): Tag {
+        return new Tag($typeName, $inner, $attributes);
+    }
+
+    public function selfClosing(): bool {
+        return in_array($this->typeName, $this->selfClosingTags);
+    }
+
+    public function setVisibility(bool $visible): void {
+        $this->visible = $visible;
+    }
+
+    protected function _setLiterality(bool $literal): void {
+        $this->literal = $literal;
+        foreach ($this->children as $child) {
+            $child->_setLiterality($literal);
+        }
+    }
+
+    public function setLiterality(bool $literal): void {
+        $this->zeroTheTab = true;
+        $this->_setLiterality($literal);
     }
 
     public function addChild(Tag $child, ?array $attributes = null, $append = false): Tag {
         if ($this->selfClosing()) {
-            throw new Exception('You cannot add a child to a self-closing tag silly!');
+            throw new Psy\Readline\Hoa\Exception('Unable to use the method ->addChild of a self-closing tag!');
         } else {
             if ($attributes) {
                 $child->setAttributes($attributes, $append);
@@ -53,6 +78,22 @@ class Tag {
             $this->children[] = $child;
             return $child;
         }
+    }
+
+    public function makeChild(string $typeName, string $inner = "", ?array $attributes = null): Tag {
+        if ($this->selfClosing()) {
+            throw new Psy\Readline\Hoa\Exception('Unable to use the method ->makeChild of a self-closing tag!');
+        } else {
+            return $this->children[] = new Tag($typeName, $inner, $attributes);
+        }
+    }
+
+    public function makeChildren(string $typeName, array $inners, array $attributes = []): Tag {
+        $result = null;
+        foreach ($inners as $inner) {
+            $result = $this->makeChild($typeName, $inner, $attributes);
+        }
+        return $result;
     }
 
     public function addChildren(array $children): void {
@@ -73,51 +114,12 @@ class Tag {
         return count($this->children) > 0;
     }
 
-    public function addText(string $text, bool $prepend = false): void {
-        if ($text !== '') {
-            if ($this->selfClosing()) {
-                throw new Exception('You cannot add text to a self-closing tag silly (-;');
-            } else {
-                if ($prepend) {
-                    array_unshift($this->children, $text);
-                } else {
-                    $this->children[] = trim($text);
-                }
-            }
-        }
-    }
-
-    // L E G A C Y
-    public function makeChild(string $typeName, string $inner = '', ?array $attributes = null): Tag {
-        $result = $this->addChild(new Tag($typeName, $attributes));
-        if ($inner !== '') {
-            $result->addText($inner);
-        }
-        return $result;
-    }
-
-    // L E G A C Y
-    public function makeChildren(string $typeName, array $inners, array $attributes = []): Tag {
-        $result = null;
-        foreach ($inners as $inner) {
-            $result = $this->makeChild($typeName, $inner, $attributes);
-        }
-        return $result;
-    }
-
-    // L E G A C Y
     public function setInner($inner): void {
-        $this->children = array_unshift($this->children, $inner);
+        $this->inner = $inner;
     }
 
-    // L E G A C Y
     public function hasInner(): bool {
-        foreach ($this->children as $child) {
-            if (is_string($child)) {
-                return true;
-            }
-        }
-        return false;
+        return $this->inner !== '';
     }
 
     public function setAttributes(array $keysValues, bool $append = false): void {
@@ -167,55 +169,40 @@ class Tag {
         $openCloseTag = $openTag . $slash;
         $closeCloseTag = $slash . $closeTag;
 
-        if (!$this->visible) {
-            return '';
+        if ($this->zeroTheTab === true) {
+            $tab = '';
         }
 
-        $tab = $this->zeroTheTab ? '' : $tab;
+        if ($this->visible) {
 
-        if ($this->selfClosing()) {
-            // THE SELF CLOSING TAG
-            return $tab . $openTag . $this->typeName . $this->attributesToString() . $closeCloseTag . $newLine;
-        } else {
-            // THE OPENING TAG
-            $result = $tab . $openTag . $this->typeName . $this->attributesToString() . $closeTag . $newLine;
-            //
-            foreach ($this->children as $child) {
-                if (is_string($child)) {
-                    $result .= $tab . $child . $newLine;
+            $result = $tab . $openTag . $this->typeName . $this->attributesToString() . ($this->selfClosing() ? $closeCloseTag : $closeTag);
+
+            if ($this->selfClosing()) {
+                $result .= $newLine;
+            } else {
+                if ($this->hasChildren()) {
+                    $result .= $newLine;
+                    if ($this->inner) {
+                        $result .= $tab . $this->inner . $newLine;
+                    }
+                    foreach ($this->children as $child) {
+                        $result .= $child->_toString("    " . $tab);
+                    }
+                    $result .= $tab . $openCloseTag . $this->typeName . $closeTag . $newLine;
                 } else {
-                    $result .= $child->_toString($tab . '    ');
+                    $result .= $this->inner;
+                    $result .= $openCloseTag . $this->typeName . $closeTag . $newLine;
                 }
             }
-            // THE CLOSING TAG
-            $result .= $tab . $openCloseTag . $this->typeName . $this->attributesToString() . $closeTag . $newLine;
-            //
+
             return $result;
+        } else {
+            return '';
         }
     }
 
     public function toString(): string {
         return $this->_toString('');
-    }
-
-    public function selfClosing(): bool {
-        return in_array($this->typeName, $this->selfClosingTags);
-    }
-
-    public function setVisibility(bool $visible): void {
-        $this->visible = $visible;
-    }
-
-    protected function _setLiterality(bool $literal): void {
-        $this->literal = $literal;
-        foreach ($this->children as $child) {
-            $child->_setLiterality($literal);
-        }
-    }
-
-    public function setLiterality(bool $literal): void {
-        $this->zeroTheTab = true;
-        $this->_setLiterality($literal);
     }
 
     public function name(): string {
@@ -271,6 +258,10 @@ class Tag {
         }
     }
 
+    public function render(): void {
+        print($this->_toString(''));
+    }
+
     public function createIndices(string $path = '0') {
         $this->setAttributes(['id' => $path, 'name' => $path]);
         $index = 0;
@@ -280,66 +271,68 @@ class Tag {
         }
     }
 
-    public function render(): void {
-        print($this->toString());
-    }
-
-    /*     * ************************************************************************
+    /*     * *************************************************************************
      * 
      *                          OUTPUT TO PHP
      * 
      * ************************************************************************ */
 
-    const DEBUG = true;
+    private function quoteInner(string $inner): string {
+        $singleQuote = "'";
+        $doubleQuote = '"';
+        $hasDoubleQuote = strpos($inner, '"') !== false;
+        $hasSingleQuote = strpos($inner, "'") !== false;
 
-    private function attributesToPHP(): string {
-        $result = '';
-        if ($this->hasAttributes()) {
-            $result = '[';
-            foreach ($this->attributes as $key => $value) {
-                $result .= "'$key' => '$value',";
-            }
-            $result .= ']';
+        if ($hasSingleQuote && $hasDoubleQuote) {
+            return $singleQuote . 'inner has single and double quotes' . $singleQuote;
+        } else if ($hasSingleQuote) {
+            return $doubleQuote . $inner . $doubleQuote;
+        } else {
+            return $singleQuote . $inner . $singleQuote;
         }
-        return $result;
     }
 
-    private function _toPHP(array &$php, string $id, string $tab): void {
+    private function attributesToPHP(): string {
+        $result = '[';
+        foreach ($this->attributes as $key => $value) {
+            $result .= "'" . $key . "' => '" . $value . "',";
+        }
+        return $result . ']';
+    }
 
-        $typeName = $this->typeName;
-        $attributes = $this->attributesToPHP();
-        $childTab = $tab . '  ';
-        
-        if (self::DEBUG){ 
-            $count = sizeof($php);
-            $php[] =  "$tab\$$typeName = \${$id}->makeChild('div', $count );\n" ;
+    private function _toPHP(array &$php, string $id): void {
+        $newId = $this->typeName;
+
+        $result = $this->hasChildren() ? '$' . $newId . ' =' : '';
+
+        $result .= '$' . $id . '->makeChild(' . "'" . $this->typeName . "'";
+
+        if ($this->hasInner() || $this->hasAttributes()) {
+            $result .= ', ' . $this->quoteInner($this->inner);
         }
 
-        if ($id !== '') {
-            $php[] = $attributes !== '' ? "$tab\$$typeName = \${$id}->addChild(new Tag('$typeName', $attributes));\n" : "$tab\$$typeName = \${$id}->addChild(new Tag('$typeName'));\n";
-        } else {
-            $php[] = "\$html = Tag::make('html');\n";
+        if ($this->hasAttributes()) {
+            $result .= ", " . $this->attributesToPHP();
         }
-        
-        
 
-        foreach ($this->children as $child) {
-            if (is_string($child)) {
-                if ($child !== '') {
-                    $string = var_export($child, true);
-                    $lineNumber = sizeof($php);
-                    $php[] =  "$tab\${$typeName}->addText(" . $string . ");\n";
-                }
-            } else {
-                $child->_toPHP($php, $typeName, $childTab);
+        $result .= ');<br>';
+
+        $php[] = $result;
+
+        if ($this->hasChildren()) {
+
+            foreach ($this->children as $child) {
+                $result .= $child->_toPHP($php, $newId);
             }
         }
     }
 
     public function toPHP(): array {
         $php = [];
-        $this->_toPHP($php, '', '');
-        $php[] = "\$html->render();\n";
+        $this->_toPHP($php, 'root');
         return $php;
     }
+
+    
+    
 }

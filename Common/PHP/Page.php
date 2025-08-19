@@ -35,7 +35,7 @@ class Page {
         }
         $this->head->makeChild('link', '', ['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Context::iconPath()]);
         $this->head->makeChild("meta", "", ["charset" => "UTF-8"]);
-        $this->head->addChild(PageCSS::asTag());
+        $this->head->addChild(PageCSS::currentCssTag());
     }
 
     private function makeFooter() {
