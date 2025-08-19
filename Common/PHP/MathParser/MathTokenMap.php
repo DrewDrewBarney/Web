@@ -13,14 +13,14 @@ class MathTokenMap extends TokenMap {
     const ALPHA_CHARS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const NUMBER_CHARS = "0123456789";
     const ALPHA_NUMERIC_CHARS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const PUNCT_CHARS = ".,;:";
-    const OP_CHARS_1 = "*/_^!";
-    const OP_CHARS_2 = "+-=<>";
+    const DELIMITERS = ",;:";
+    const OP_CHARS_1 = ".*/_^!";
+    //const OP_CHARS_2 = "+-=<>";
     const BRACE_CHARS = "()[]{}";
     const STRING_CHARS = " 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+-*/_^!()[]{}";
 
     //
-    // THE MAP LOCATIONS
+    // THE MAP LOCATIONS 
     //
 
     protected ?TokenMapNode $root = null;
@@ -51,7 +51,7 @@ class MathTokenMap extends TokenMap {
         //
         // punctuation
 
-        $root->makeChild(self::PUNCT_CHARS, MathToken::PUNCTUATION); // terminate
+        $root->makeChild(self::DELIMITERS, MathToken::PUNCTUATION); // terminate
         //
         // braces
 

@@ -5,42 +5,45 @@
     text-align: center;
     vertical-align: baseline;
     line-height: 2;
-    background:greenyellow;
+    background:transparent;
     margin:0px;
     padding:0px 1px;
+    font-size: inherit;
 }
 
- .timesDivide, .addSubtract, .operator, .expression, .expressions {
+.timesDivide, .addSubtract, .operator, .expression, .expressions {
     display:inline-block;
     text-align: center;
     vertical-align: middle;
     background:transparent;
     margin:0px;
-    padding:0px;
-    word-spacing: 0ch;
-    background:lightpink;
+    padding:0px 1px;
+    background:transparent;
+    font-size:1em;
 }
 
 
 
 .prefix {
-  display: inline-flex;
-  align-items: center;   /* vertical centre */
-  justify-content: center; /* horizontal centre */
-  margin:0px;
-  padding:0px;
-  background:orange;
+    display: inline-flex;
+    align-items: center;   /* vertical centre */
+    justify-content: center; /* horizontal centre */
+    margin:0px;
+    padding:0px;
+    /*background:orange;*/
+    font-size:1em;
 
 }
 
 
 .postfix {
-  display: inline-flex;
-  align-items: center;   /* vertical centre */
-  justify-content: center; /* horizontal centre */
-  margin:0px;
-  padding:0px;
-  background:yellow;
+    display: inline-flex;
+    align-items: center;   /* vertical centre */
+    justify-content: center; /* horizontal centre */
+    margin:0px;
+    padding:0px;
+    /*background:yellow;*/
+    font-size:1em;
 
 }
 
@@ -50,7 +53,8 @@
     text-align: center;
     vertical-align:middle;
     word-spacing: 0em;
-  
+    font-size: inherit;
+
 }
 
 
@@ -58,7 +62,7 @@
     display:inline;
     text-align: center;
     vertical-align:bottom;
-  
+    font-size:1em;
 }
 
 
@@ -69,6 +73,8 @@
     align-items: stretch;      /* stretches SVG inside */
     flex-shrink: 0;
     background: transparent;
+    margin:0px 0px;
+    font-size:1em;
 }
 
 
@@ -76,7 +82,7 @@
     display: inline-grid;
     grid-auto-flow:column;
     align-items: stretch; /* stretch children to same height */
-  
+    font-size:1em;
 }
 
 
@@ -84,7 +90,7 @@
     display:inline-block;
     border-top:2px solid black;
     padding-top:2px;
-    
+
 }
 
 .symbolContainer svg {
@@ -97,17 +103,13 @@
 .brace{
     display:inline-flex;
     align-items: stretch;
-    /*
-    text-align: center;
-    vertical-align: middle;
-    */
-    margin:0.0em;
+    margin:0px;
     border: 0px;
     border-left: 3px solid black;
     border-right: 3px solid black;
-    border-radius: 0.9em;
-    padding:0.0em 0.1em;
-    font-size:inherit;
+    border-radius: 0.5em;
+    padding:0.0em 0.2em;
+    font-size:1em;
 }
 
 .invisibleBrace{
@@ -117,14 +119,16 @@
     margin:0px;
     border: 0px;
     padding:0em;
-    font-size:inherit;
+    font-size:1em;
 }
 
 .dividingLine{
     display:inline-grid;
     background:black;
-    height:2px;
-    margin:3px 0px;
+    height:0px;
+    padding:1.5px 5px;
+    margin:2px 3px;
+    font-size:1em;
 }
 
 .divide{
@@ -134,11 +138,10 @@
     vertical-align: middle;
     text-align: center;
     align-items: baseline;
-    margin:0px;
+    margin:0px 0px;
     padding:0px;
+    font-size:1em;
 }
-
-
 
 
 
@@ -162,23 +165,22 @@
 
 
 
-
 .card {
     display:block;
     text-align: center;
     vertical-align: middle;
     width:fit-content;
-    margin:0px;
+    margin:0ch 0ch 5ch 0ch;
     padding: 2ch 4ch;
     font-size: 1.5em;
-    border-radius: 1ch;
+    border-radius: 0.5ch;
     box-shadow: 3px 3px 15px rgba(0,0,0,0.5);
-    background: rgb(255,255,245) !important;
+    background: rgb(255,255,245);
 }
 
 .legend{
     background:transparent;
-    font-size:0.7em;
+    font-size:0.5em;
     font-weight: bold;
     line-height: 1.5;
     color:rgba(125,62,0,0.75);
@@ -186,6 +188,6 @@
 
 .legend:first-child{
     margin-top:2ch;
-  
+
 }
 

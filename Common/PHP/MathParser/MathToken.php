@@ -25,19 +25,6 @@ class MathToken extends Token {
     const MUCH_LESS_THAN = "\u{226A}";
     const MUCH_GREATER_THAN = "\u{226B}";
     
-    /*
-    const SWAPS = [
-        '*' => self::TIMES,
-        '+-' => self::PLUS_MINUS,
-        '/' => self::DIVIDE,
-        '<=' => self::LESS_EQ,
-        '>=' => self::GREATER_EQ,
-        '<>' => self::NOT_EQUAL,
-        '<<' => self::MUCH_LESS_THAN,
-        '>>' => self::MUCH_GREATER_THAN
-    ];
-     * 
-     */
 
     public string $token = '';
     public string $type = TokenMap::NO_TYPE;

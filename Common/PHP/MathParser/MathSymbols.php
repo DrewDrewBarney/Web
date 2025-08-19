@@ -8,8 +8,9 @@ class MathSymbols {
 
         // Define two lines in 100x100 virtual canvas
         $lines = [
-            [10, 60, 40, 90], // descending leg
-            [40, 90, 100, -5], // angled tick
+            [2.5, 60, 10, 60],
+            [10, 60, 40, 95], // descending leg
+            [40, 95, 100, 0], // angled tick
         ];
 
         // scaling factors (if virtualWidth != 100)

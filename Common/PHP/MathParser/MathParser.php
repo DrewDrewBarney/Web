@@ -35,7 +35,11 @@ class MathParser {
         // so it should get first bite of the cherry
         if ($this->tokeniser->token()->rightType([MathToken::NUMBER, MathToken::DECIMAL, MathToken::ALPHA_NUMERIC])) {
             $result = Tag::make('span', $this->tokeniser->token()->prettyToken, ['class' => 'primitive']);
+            $lastToken = $this->tokeniser->token();
             $this->tokeniser->get();
+            
+    
+            
         } else if ($this->tokeniser->token()->rightType([MathToken::STRING])) {
             $result = Tag::make('span', $this->tokeniser->token()->prettyToken, ['class' => 'primitive']);
             $this->tokeniser->get();
@@ -76,8 +80,8 @@ class MathParser {
     function prefix(): tag {
         $prefix = Tag::make('span', '', ['class' => 'symbolContainer']);
 
-        if ($this->tokeniser->token()->rightToken(['root', '-', '+'])) {
-            if ($this->tokeniser->token()->rightToken(['root'])) {
+        if ($this->tokeniser->token()->rightToken(['sqrt', '-', '+'])) {
+            if ($this->tokeniser->token()->rightToken(['sqrt'])) {
                 $this->tokeniser->get();
                 $prefix->makeChild('span', MathSymbols::root(50), ['class' => 'symbol']);
                 $prefix->makeChild('span', '', ['class' => 'vinculum'])->addChild($this->postfix());
@@ -139,12 +143,13 @@ class MathParser {
 
         while ($this->tokeniser->token()->rightToken(['*', '÷'])) {
             $timesDivide->makeChild('span', $this->tokeniser->token()->prettyToken, ['class' => 'binary']);
-
             $this->tokeniser->get();
             $timesDivide->addChild($this->divide());
         }
         return $timesDivide;
     }
+
+   
 
     function addSubtract(): Tag {
         $addSubtract = Tag::make('span', '', ['class' => 'addSubtract']);
@@ -219,11 +224,12 @@ if (debug) {
 
     $tests = [
         // A. Radicals + superscripts
-        "root(b^2 - 4*a*c)",
-        "root((a+b)^2)",
+        "3.1 x",
+        "sqrt(2 b^2 - 4.1 a)",
+        "sqrt(3(a+b)^2)",
         "(1/x)^n",
-        "root(x^x)^x",
-        "root(1 + root(1 + root(x)))",
+        "sqrt(x^x)^x",
+        "sqrt(1 + sqrt(1 + sqrt(x)))",
         // B. Script order & nesting
         "a^b_c",
         "a_b^c",
@@ -236,7 +242,7 @@ if (debug) {
         // C. Fractions with tall parts
         "(a/b)^(c/d)",
         "((a^2 + b^2)/(c + d^3))^k",
-        "root((1 + 1/x) / (1 - 1/x))",
+        "sqrt((1 + 1/x) / (1 - 1/x))",
         // D. Unary vs binary minus
         "-a^2", // prefix minus
         "(-a)^2",
@@ -261,10 +267,10 @@ if (debug) {
         "[(a+b)/(c+d)]^e",
         "{a + (b/c)}^d",
         "x^2, k^(n+1), x^(a_b)",
-        "(1/2)^n, ((a+b))^c, root(x)^m",
+        "(1/2)^n, ((a+b))^c, sqrt(x)^m",
         "1/a^(1/2), 1/(a^(b+c)), (a/b)^(c/d)"
             // I. Mixed prose + inline math
-            //"Let f(x)=x^2 for x>=0; then root(x)^3 grows."
+            //"Let f(x)=x^2 for x>=0; then sqrt(x)^3 grows."
     ];
 
     $page = new Page('MathParser', false);
