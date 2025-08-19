@@ -3,34 +3,62 @@
 .primitive {
     display:inline-block;
     text-align: center;
-    vertical-align: middle;
+    vertical-align: baseline;
+    line-height: 2;
     background:greenyellow;
-    margin:2px 0px;
-    padding:0px;
+    margin:0px;
+    padding:0px 1px;
 }
 
-.prefix, .postfix, .timesDivide, .addSubtract, .operator, .expression, .expressions {
+ .timesDivide, .addSubtract, .operator, .expression, .expressions {
     display:inline-block;
     text-align: center;
     vertical-align: middle;
     background:transparent;
     margin:0px;
     padding:0px;
+    word-spacing: 0ch;
+    background:lightpink;
 }
+
+
 
 .prefix {
-    display:inline-block;
-    text-align: center;
-    vertical-align: middle;
-    background:orange;
-    margin:0px;
-    padding:0px;
+  display: inline-flex;
+  align-items: center;   /* vertical centre */
+  justify-content: center; /* horizontal centre */
+  margin:0px;
+  padding:0px;
+  background:orange;
+
 }
 
-.primitiveContainer, .subscriptContainer, .superscriptContainer, mathBland{
+
+.postfix {
+  display: inline-flex;
+  align-items: center;   /* vertical centre */
+  justify-content: center; /* horizontal centre */
+  margin:0px;
+  padding:0px;
+  background:yellow;
+
+}
+
+
+.primitiveContainer,mathBland{
     display:inline-block;
     text-align: center;
     vertical-align:middle;
+    word-spacing: 0em;
+  
+}
+
+
+.subscriptContainer, .superscriptContainer{
+    display:inline;
+    text-align: center;
+    vertical-align:bottom;
+  
 }
 
 
@@ -48,9 +76,9 @@
     display: inline-grid;
     grid-auto-flow:column;
     align-items: stretch; /* stretch children to same height */
-   
   
 }
+
 
 .vinculum{
     display:inline-block;
@@ -73,12 +101,12 @@
     text-align: center;
     vertical-align: middle;
     */
-    margin:0.5ch;
+    margin:0.0em;
     border: 0px;
     border-left: 3px solid black;
     border-right: 3px solid black;
-    border-radius: 1ch;
-    padding:0.5ch;
+    border-radius: 0.9em;
+    padding:0.0em 0.1em;
     font-size:inherit;
 }
 
@@ -88,7 +116,7 @@
     vertical-align: middle;
     margin:0px;
     border: 0px;
-    padding:0ch;
+    padding:0em;
     font-size:inherit;
 }
 
@@ -113,18 +141,23 @@
 
 
 
+
 .subscript {
-    display:inline-block;
-    vertical-align: -0.25ch;
-    font-size: 0.8em;
-    margin-left:-0.25em;
+    display:inline-flex;
+    vertical-align: -0.33em;
+    font-size: 0.75em;
+    padding:0px;
+    margin:0px;
+    margin-left:-0em;
 }
 
 .superscript {
-    display:inline-block;
-    vertical-align: super;
-    font-size: 0.8em;
-    margin-left: -0.25em;
+    display:inline-flex;
+    vertical-align: top;
+    font-size: 0.75em;
+    padding:0px;
+    margin:0px;
+    margin-left: -0.0em;
 }
 
 
@@ -137,10 +170,10 @@
     width:fit-content;
     margin:0px;
     padding: 2ch 4ch;
-    font-size: 1em;
+    font-size: 1.5em;
     border-radius: 1ch;
     box-shadow: 3px 3px 15px rgba(0,0,0,0.5);
-    background: rgb(255,255,245);
+    background: rgb(255,255,245) !important;
 }
 
 .legend{

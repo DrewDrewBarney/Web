@@ -13,6 +13,8 @@ class MathParser {
 
     protected ?Tokeniser $tokeniser = null;
 
+    //static protected ?MathParser $mathParser = null;
+
     function __construct(string $text) {
         $this->tokeniser = new Tokeniser($text, new MathTokenMap());
     }
@@ -96,7 +98,7 @@ class MathParser {
         $subSuper->addChild($this->prefix());
 
         while ($this->tokeniser->token()->rightToken(['_'])) {
-            $token = $this->tokeniser->token()->token;
+            //$token = $this->tokeniser->token()->token;
             $this->tokeniser->get();
             $subSuper->makeChild('sub', '', ['class' => 'subScript'])->addChild($this->subscript());
         }
@@ -110,7 +112,7 @@ class MathParser {
         $subSuper->addChild($this->subscript());
 
         while ($this->tokeniser->token()->rightToken(['^'])) {
-            $token = $this->tokeniser->token()->token;
+            //$token = $this->tokeniser->token()->token;
             $this->tokeniser->get();
             $subSuper->makeChild('sup', '', ['class' => 'superScript'])->addChild($this->superscript());
         }
@@ -194,6 +196,7 @@ class MathParser {
     }
 
     static function asTag(string $equation): Tag {
+        //self::$mathParser = ?? new MathParser()
         return (new MathParser($equation))->evaluate();
     }
 
@@ -257,6 +260,9 @@ if (debug) {
         "((a+b))^c",
         "[(a+b)/(c+d)]^e",
         "{a + (b/c)}^d",
+        "x^2, k^(n+1), x^(a_b)",
+        "(1/2)^n, ((a+b))^c, root(x)^m",
+        "1/a^(1/2), 1/(a^(b+c)), (a/b)^(c/d)"
             // I. Mixed prose + inline math
             //"Let f(x)=x^2 for x>=0; then root(x)^3 grows."
     ];

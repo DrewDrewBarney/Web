@@ -280,8 +280,12 @@ class Tag {
         }
     }
 
-    public function render(): void {
-        print($this->toString());
+    public static function ugly(string $pretty): string {
+        return preg_replace('/>(?:\h|\R)+</u', '><', $pretty);
+    }
+
+    public function render(bool $pretty = false): void {
+        print($pretty ? $this->toString() : self::ugly($this->toString()));
     }
 
     /*     * ************************************************************************
@@ -309,10 +313,10 @@ class Tag {
         $typeName = $this->typeName;
         $attributes = $this->attributesToPHP();
         $childTab = $tab . '  ';
-        
-        if (self::DEBUG){ 
+
+        if (self::DEBUG) {
             $count = sizeof($php);
-            $php[] =  "$tab\$$typeName = \${$id}->makeChild('div', $count );\n" ;
+            $php[] = "$tab\$$typeName = \${$id}->makeChild('div', $count );\n";
         }
 
         if ($id !== '') {
@@ -320,15 +324,15 @@ class Tag {
         } else {
             $php[] = "\$html = Tag::make('html');\n";
         }
-        
-        
+
+
 
         foreach ($this->children as $child) {
             if (is_string($child)) {
                 if ($child !== '') {
                     $string = var_export($child, true);
                     $lineNumber = sizeof($php);
-                    $php[] =  "$tab\${$typeName}->addText(" . $string . ");\n";
+                    $php[] = "$tab\${$typeName}->addText(" . $string . ");\n";
                 }
             } else {
                 $child->_toPHP($php, $typeName, $childTab);
