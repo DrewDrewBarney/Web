@@ -26,7 +26,8 @@ class MathSymbols {
             $lineMarkup .= "<line x1=\"$x1s\" y1=\"$y1s\" x2=\"$x2s\" y2=\"$y2s\" stroke=\"black\" stroke-width=\"2\" stroke-linecap=\"round\" vector-effect=\"non-scaling-stroke\" />\n";
         }
 
-        return <<<SVG
+        return
+                <<<SVG
             <svg 
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 $virtualWidth $virtualHeight"

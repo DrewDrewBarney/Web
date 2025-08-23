@@ -5,19 +5,31 @@ class MathToken extends Token {
     //
     // TOKEN TYPES
     //
-    const ALPHA = 'ALPHA';
+    //const ALPHA = 'ALPHA';
     const ALPHA_NUMERIC = 'ALPHA_NUMERIC';
     const NUMBER = 'NUMERIC';
-    const DECIMAL = 'DECIMAL';
+    //const DECIMAL = 'DECIMAL';
     const PUNCTUATION = 'PUNCTUATION';
     const OPERATOR = 'OPERATOR';
     const BRACE = 'BRACE';
     const STRING = 'STRING';
     //
+    //
+    // MAP ALPHA OPERATORS TO OPERATOR TYPE
+    //
+    //
+    const ALPHA_OP_MAP = [
+        'sqrt' => self::OPERATOR
+    ];
+    //
+    //
+    //
+    //
+    //
     // UTF-8 replacements for the SWAPS map
     //
     const PLUS_MINUS = "\u{00B1}";
-    const TIMES = "\u{2219}";
+    const TIMES = "\u{22C5}";
     const DIVIDE = "\u{00F7}";
     const LESS_EQ = "\u{2264}";
     const GREATER_EQ = "\u{2265}";
@@ -42,7 +54,7 @@ class MathToken extends Token {
             '>>' => self::MUCH_GREATER_THAN
         ];
         $this->token = $token;
-        $this->type = $type;
+        $this->type =  isset(self::ALPHA_OP_MAP[$this->token]) ? self::ALPHA_OP_MAP[$this->token]: $type;
         $this->prettyMap();
     }
 

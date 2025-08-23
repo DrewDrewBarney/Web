@@ -15,7 +15,6 @@ class MathTokenMap extends TokenMap {
     const ALPHA_NUMERIC_CHARS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const DELIMITERS = ",;:";
     const OP_CHARS_1 = ".*/_^!";
-    //const OP_CHARS_2 = "+-=<>";
     const BRACE_CHARS = "()[]{}";
     const STRING_CHARS = " 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+-*/_^!()[]{}";
 
@@ -46,7 +45,7 @@ class MathTokenMap extends TokenMap {
 
         $number = $root->makeChild(self::NUMBER_CHARS, MathToken::NUMBER); // catch
         $number->addChild(self::NUMBER_CHARS, $number); // loop
-        $decimal = $number->makeChild('.', MathToken::DECIMAL); // branch
+        $decimal = $number->makeChild('.'); // branch
         $decimal->addChild(self::NUMBER_CHARS, $decimal); // loop
         //
         // punctuation

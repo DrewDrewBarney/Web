@@ -7,7 +7,8 @@ class Tokeniser {
     private ?StringWalker $text = null;
     private ?TokenMap $map = null;
     private string $chr = '';
-    private ?MathToken $token = null;
+    private ?Token $token = null;
+    private ?Token $previousToken = null;
 
     function __construct(string $text, TokenMap $map) {
         $this->text = new StringWalker($text);
@@ -35,13 +36,18 @@ class Tokeniser {
         while ($this->map->step($this->chr)) {
             $token .= $this->chr;
             $this->chr = $this->text->get();
-        };
+        }
 
+        $this->previousToken = $this->token;
         $this->token = $token === '' ? new MathToken('Token is null', Token::NULL) : new MathToken($token, $this->map->type());
     }
 
    
     function token(): ?MathToken {
         return $this->token;
+    }
+    
+    function previousToken():?MathToken{
+        return $this->previousToken;
     }
 }

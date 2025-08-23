@@ -31,11 +31,11 @@ class Token {
         }
     }
 
-    public function rightType(array $types): bool {
+    public function isOfTypes(array $types): bool {
         return in_array($this->type, $types);
     }
 
-    public function rightToken(array $tokens): bool {
+    public function isOf(array $tokens): bool {
         return in_array($this->token, $tokens);
     }
 

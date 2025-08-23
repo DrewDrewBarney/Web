@@ -12,11 +12,26 @@ class Tag {
         "text/javascript" => FILTER_SANITIZE_SPECIAL_CHARS,
         'date' => FILTER_SANITIZE_SPECIAL_CHARS
     ];
+    //
+    // HTML self-closing tags
+    /////////////////////////
+    private const VOID = [
+        'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param'
+        , 'source', 'track', 'wbr', /* ZWIFT */ 'tag', 'textevent'
+    ];
+    //
+    // HTML phrasing tags
+    /////////////////////
+    private const PHRASING = [
+        'a', 'abbr', 'b', 'bdi', 'bdo', 'br', 'cite', 'code', 'data', 'dfn', 'em', 'i', 'kbd', 'mark', 'q', 'rp', 'rt', 'ruby',
+        's', 'samp', 'small', 'span', 'strong', 'sub', 'sup', 'time', 'u', 'var', 'wbr', 'img', 'input', 'label', 'textarea',
+        'select', 'button', 'output', 'progress', 'meter', 'picture', 'map', 'audio', 'video'
+            // (SVG/MathML inline elements can be added if you emit them)
+    ];
 
     private string $typeName = '';
     private array $children = [];
     private array $attributes = [];
-    private array $selfClosingTags = ['area', 'base', 'br', 'colembed', 'hr', 'img', 'link', 'meta', 'param', 'source', 'track', 'wbr', /* ZWIFT */ 'tag', 'textevent'];
     private bool $visible = true;
     // literal output related stuff (</> escaped etc...)
     private bool $literal = false;
@@ -45,8 +60,15 @@ class Tag {
 
     public function addChild(Tag $child, ?array $attributes = null, $append = false): Tag {
         if ($this->selfClosing()) {
-            throw new Exception('You cannot add a child to a self-closing tag silly!');
+            try{
+                throw new Exception('You cannot add a child to a self-closing tag');
+            } catch(Exception $e){
+                echo '@@@@@' . $e->getMessage();
+            }
+        } else if ($this->phrasing() && !$child->phrasing()) {
+            throw new Exception('You cannot add the non-phrasing child ' . $child->typeName . ' to parent ' . $this->typeName);
         } else {
+
             if ($attributes) {
                 $child->setAttributes($attributes, $append);
             }
@@ -159,8 +181,8 @@ class Tag {
         return count($this->attributes) > 0;
     }
 
-    private function _toString(string $tab): string {
-        $newLine = "\n";
+    private function _toString(string $lastTab, bool $prettyPrint): string {
+        $newLine = $prettyPrint === true ? "\n" : "";
         $slash = $this->literal ? '&#47' : '/';
         $openTag = $this->literal ? '&#60' : '<';
         $closeTag = $this->literal ? '&#62' : '>';
@@ -171,7 +193,7 @@ class Tag {
             return '';
         }
 
-        $tab = $this->zeroTheTab ? '' : $tab;
+        $tab = $this->zeroTheTab || !$prettyPrint ? '' : $lastTab;
 
         if ($this->selfClosing()) {
             // THE SELF CLOSING TAG
@@ -184,22 +206,26 @@ class Tag {
                 if (is_string($child)) {
                     $result .= $tab . $child . $newLine;
                 } else {
-                    $result .= $child->_toString($tab . '    ');
+                    $result .= $child->_toString($tab . '    ', $prettyPrint);
                 }
             }
             // THE CLOSING TAG
-            $result .= $tab . $openCloseTag . $this->typeName . $this->attributesToString() . $closeTag . $newLine;
+            $result .= $tab . $openCloseTag . $this->typeName . $closeTag . $newLine;
             //
             return $result;
         }
     }
 
-    public function toString(): string {
-        return $this->_toString('');
+    public function toString(bool $prettyPrint = true): string {
+        return $this->_toString('', $prettyPrint);
     }
 
     public function selfClosing(): bool {
-        return in_array($this->typeName, $this->selfClosingTags);
+        return in_array($this->typeName, self::VOID);
+    }
+
+    public function phrasing(): bool {
+        return in_array($this->typeName, self::PHRASING);
     }
 
     public function setVisibility(bool $visible): void {
@@ -280,12 +306,9 @@ class Tag {
         }
     }
 
-    public static function ugly(string $pretty): string {
-        return preg_replace('/>(?:\h|\R)+</u', '><', $pretty);
-    }
+    public function render(bool $prettyPrint = false): void {
 
-    public function render(bool $pretty = false): void {
-        print($pretty ? $this->toString() : self::ugly($this->toString()));
+        echo $this->toString($prettyPrint);
     }
 
     /*     * ************************************************************************
@@ -324,8 +347,6 @@ class Tag {
         } else {
             $php[] = "\$html = Tag::make('html');\n";
         }
-
-
 
         foreach ($this->children as $child) {
             if (is_string($child)) {

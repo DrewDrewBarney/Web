@@ -1,193 +1,345 @@
 
 
-.primitive {
-    display:inline-block;
-    text-align: center;
-    vertical-align: baseline;
-    line-height: 2;
-    background:transparent;
-    margin:0px;
-    padding:0px 1px;
-    font-size: inherit;
-}
-
-.timesDivide, .addSubtract, .operator, .expression, .expressions {
-    display:inline-block;
-    text-align: center;
-    vertical-align: middle;
-    background:transparent;
-    margin:0px;
-    padding:0px 1px;
-    background:transparent;
-    font-size:1em;
-}
+/* bits and pieces */
 
 
-
-.prefix {
-    display: inline-flex;
-    align-items: center;   /* vertical centre */
-    justify-content: center; /* horizontal centre */
-    margin:0px;
-    padding:0px;
-    /*background:orange;*/
-    font-size:1em;
-
-}
-
-
-.postfix {
-    display: inline-flex;
-    align-items: center;   /* vertical centre */
-    justify-content: center; /* horizontal centre */
-    margin:0px;
-    padding:0px;
-    /*background:yellow;*/
-    font-size:1em;
-
-}
-
-
-.primitiveContainer,mathBland{
-    display:inline-block;
-    text-align: center;
-    vertical-align:middle;
-    word-spacing: 0em;
-    font-size: inherit;
-
-}
-
-
-.subscriptContainer, .superscriptContainer{
-    display:inline;
-    text-align: center;
-    vertical-align:bottom;
-    font-size:1em;
-}
-
-
-/*******************************************************************/
-
-.symbol {
-    display: inline-flex;      /* makes it a flex container for the SVG */
-    align-items: stretch;      /* stretches SVG inside */
-    flex-shrink: 0;
-    background: transparent;
-    margin:0px 0px;
-    font-size:1em;
-}
-
-
-.symbolContainer {
+.dividingLine {
+    justify-self: stretch;
     display: inline-grid;
-    grid-auto-flow:column;
-    align-items: stretch; /* stretch children to same height */
-    font-size:1em;
+    background: black;
+    height: 0;
+    padding: 1px 5px;       /* thickness via padding; easy to tune */
+    margin: 2px 3px;
+    font-size: 1em;
+}
+
+/* Overbar (vinculum) drawn independent of line-height */
+.vinculum {
+    display: inline-block;
+    border-top: 2px solid black;
+    padding-top: 2px;         /* headroom so scripts don’t graze the bar */
 }
 
 
-.vinculum{
-    display:inline-block;
-    border-top:2px solid black;
-    padding-top:2px;
-
-}
-
-.symbolContainer svg {
-    height: 100%;    /* fills parent’s height */
-    width: auto;     /* preserve aspect ratio */
-    flex-shrink: 0;
-}
 
 
-.brace{
-    display:inline-flex;
-    align-items: stretch;
-    margin:0px;
-    border: 0px;
-    border-left: 3px solid black;
-    border-right: 3px solid black;
-    border-radius: 0.5em;
-    padding:0.0em 0.2em;
-    font-size:1em;
-}
 
-.invisibleBrace{
-    display:inline-block;
+.subscriptContainer {
+    display: inline;
     text-align: center;
     vertical-align: middle;
-    margin:0px;
-    border: 0px;
-    padding:0em;
-    font-size:1em;
-}
 
-.dividingLine{
-    display:inline-grid;
-    background:black;
-    height:0px;
-    padding:1.5px 5px;
-    margin:2px 3px;
-    font-size:1em;
+    /* canaries */
+    border-color:lavenderblush;
 }
-
-.divide{
-    display:inline-grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto auto auto;
-    vertical-align: middle;
-    text-align: center;
-    align-items: baseline;
-    margin:0px 0px;
-    padding:0px;
-    font-size:1em;
-}
-
 
 
 .subscript {
-    display:inline-flex;
-    vertical-align: -0.33em;
-    font-size: 0.75em;
-    padding:0px;
-    margin:0px;
-    margin-left:-0em;
+    display: inline;
+    vertical-align: -0.75em;  /* descent; tweak to taste */
+    font-size: 0.7em;
 }
 
-.superscript {
-    display:inline-flex;
-    vertical-align: top;
-    font-size: 0.75em;
-    padding:0px;
-    margin:0px;
-    margin-left: -0.0em;
+
+.superscriptContainer {
+    display: inline;
+    text-align: center;
+    vertical-align: middle;
+
+    /* canaries */
+    border-color: lavenderblush;
 }
+
+
+.superscript {
+    display: inline;
+    vertical-align: 1em;  /* ascent; tweak to taste */
+    font-size: 0.7em;
+}
+
+.vinculum .superscript{
+    vertical-align: top;
+    font-size:0.7em;
+}
+
+.brace .superscript{
+    vertical-align: top;
+    font-size:0.5em;
+}
+
+.superscriptAfterBrace{
+    vertical-align: top;
+}
+
+
+.SVGsymbol {
+    display: inline-flex;     /* flex to stretch the SVG */
+}
+
+.SVGsymbolPlusVinculumContainer{
+    display: inline-grid;
+    grid-template-columns:auto auto;
+    align-items: stretch;
+    vertical-align: middle;
+
+}
+
+
+/******************************************************
+ * SUPERSCRIPTS / SUBSCRIPTS
+ ******************************************************/
+/*
+.superscript {
+    display: inline-flex;     /* works well with vertical-align: top 
+    vertical-align: top;      /* higher after tall bases 
+    font-size: 0.75em;        /* script size 
+    line-height: 1;           /* avoid extra leading inside the script 
+    margin: 0;
+    padding: 0;
+    margin-left: 0;           /* keep close to base; parser controls spacing 
+}
+
+
+*/
+
+
+
+.primitive {
+    display: inline;
+    text-align: center;
+    vertical-align: middle;
+    background: transparent;
+    margin: 0px;
+    padding: 4px;          /* tiny horizontal breathing room */
+    font-size: inherit;      /* obey container sizing */
+}
+
+
+/* Braces */
+.brace {
+    display: inline-block;
+    text-align: center;
+    width:fit-content;
+    align-items:center;
+    margin: 0;
+    border: 0;
+
+    border-width: 0px;
+    border-style: solid;
+    border-color: black;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-radius: 0.333em;
+    padding: 0.1em 0.1em;
+    margin: 0.1em 0.1em;
+}
+
+.invisibleBrace {
+    display: inline;
+    text-align: center;
+    vertical-align: middle;
+}
+
+
+
+.prefixContainer {
+    display: inline-block;
+    align-items: center;
+    margin:0px;
+    padding:0px;
+}
+
+.postfixContainer {
+    display: inline-block;
+    align-items: center;
+    margin:0px;
+    padding:0px;
+}
+
+.postfix{
+    margin:0px;
+    padding:0px;
+}
+
+
+
+.timesDivide
+{
+    display: inline;
+    text-align: center;
+    vertical-align: middle;
+    background: transparent;
+
+    font-size: 1em;          /* baseline size for contained tokens */
+
+}
+
+
+.divide {
+    display: inline-grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto auto; /* num / bar / den */
+    justify-items: center;
+    vertical-align: middle;
+    text-align: center;
+    align-content:center;
+    align-items: baseline;
+    margin: 0;
+    padding: 0px;
+    font-size: 1em;
+
+    /* canaries */
+
+    border-color:  darkblue;
+}
+
+
+
+.impliedTimes {
+    display: inline;
+    text-align: center;
+    vertical-align: middle;
+    background: transparent;
+    margin: 0;
+    padding: 0 1px;
+    font-size: 1em;
+
+    /* canaries */
+    border-color:lightsalmon;
+}
+
+
+.addSubtract
+{
+    display: inline;
+    vertical-align: middle;
+    text-align: center;
+    background: transparent;
+
+    font-size: 1em;          /* baseline size for contained tokens */
+
+    /* canaries */
+
+    border-color:greenyellow;
+}
+
+
+
+.expression {
+    display:inline;
+    font-family:
+        "STIX Two Math",
+        "STIX Two Text",
+        "Cambria Math",
+        "Latin Modern Math",
+        "DejaVu Serif",
+        serif;
+
+    line-height: 1;                 /* tighter vertical box */
+
+    /* canaries */
+    border-color: red;
+}
+
+
+.expressions {
+    font-family:
+        "STIX Two Math",
+        "STIX Two Text",
+        "Cambria Math",
+        "Latin Modern Math",
+        "DejaVu Serif",
+        serif;
+
+    line-height: 1;                 /* tighter vertical box */
+    font-variant-numeric: lining-nums;
+
+    /* canaries */
+    border-color:  orange;
+}
+
+
+/* START UP THE RECURSIVE DESCENT PARSER AT .expressions */
+
+
+
+
+/* Keep descendants inheriting the family; prevents stray resets */
+.expressions *, .expression * {
+    font-family: inherit;
+    text-align: center;
+}
+
+
+/*Inline SVG (roots, etc.) doesn’t inherit from HTML by default */
+.expressions svg, .expression svg {
+    font-family: inherit;
+}
+
+
+
 
 
 
 .card {
-    display:block;
+    display: inline-block;
+    width:fit-content;
     text-align: center;
     vertical-align: middle;
-    width:fit-content;
-    margin:0ch 0ch 5ch 0ch;
+    width: fit-content;
+    margin: 0 0 5ch 0;
     padding: 2ch 4ch;
-    font-size: 1.5em;
+    font-size: 2em;
+    border:none;
     border-radius: 0.5ch;
     box-shadow: 3px 3px 15px rgba(0,0,0,0.5);
     background: rgb(255,255,245);
 }
 
-.legend{
-    background:transparent;
-    font-size:0.5em;
+.legend {
+    background: transparent;
+    font-size: 1em;
     font-weight: bold;
     line-height: 1.5;
-    color:rgba(125,62,0,0.75);
+    color: rgba(125,62,0,0.75);
 }
 
-.legend:first-child{
-    margin-top:2ch;
-
+.legend:first-child {
+    margin-top: 2ch;
 }
+
+
+/* CANARIES FOR DEBUGGING */
+
+/*
+.expression, .expressions, .addSubtract, .timesDivide, .divide, .impliedTimes,
+.prefixContainer, .postfixContainer, .subscriptContainer, .superscriptContainer{
+    border-width: 3px;
+    border-style: solid;
+    margin:0px;
+    padding:3px;
+}
+*/
+
+
+/*
+.superscriptContainer{
+    vertical-align: middle !important;
+}
+
+
+
+.primitive{
+    display:inline !important;
+}
+
+
+*/
+
+/*
+.superscript{
+
+    vertical-align: top !important;
+}
+*/
 
