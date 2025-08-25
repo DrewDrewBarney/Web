@@ -75,13 +75,26 @@ class MathParser {
 
     function prefixOperator(): tag {
 
-        if ($this->tokeniser->token()->isOf(['sqrt', '-', '+'])) {
+        if ($this->tokeniser->token()->isOf(['range', 'sqrt', '-', '+'])) {
             $this->tokeniser->get();
 
             if ($this->tokeniser->previousToken()->isOf(['sqrt'])) {
                 $container = Tag::make('span', '', ['class' => 'SVGsymbolPlusVinculumContainer']);
-                $container->makeChild('span', MathSymbols::root(50), ['class' => 'SVGsymbol']);
+                $container->makeChild('span', MathSymbols::sqrt(), ['class' => 'SVGsymbol']);
                 $container->makeChild('span', '', ['class' => 'vinculum'])->addChild($this->postfixOperator());
+            } else if ($this->tokeniser->previousToken()->isOf(['range'])) {
+                $container = Tag::make('span', '', ['class' => 'rangeContainer']);
+                $this->tokeniser->get(); // get the opening brace of the range
+                $from = $this->expression();
+                $this->tokeniser->get(); // get the delimiting comma
+                $to = $this->addSubtract();
+                $this->tokeniser->get(); // get the second delimiting comma
+                $expression = $this->expression(); // get the meat
+                $this->tokeniser->get(); // closing brace
+                $container->addChild($to, ['class' => 'rangeToExpression']);
+                $container->makeChild('span', MathSymbols::int(), ['class' => 'rangeSymbol']);
+                $container->addChild($from, ['class' => 'rangeFromExpression']);
+                $container->addChild($expression, ['class' => 'rangeMainExpression'], true);
             } else {
                 $container = Tag::make('span', '', ['class' => 'prefixContainer']);
                 $container->makeChild('span', $this->tokeniser->previousToken()->prettyToken, ['class' => 'prefix']);
@@ -98,11 +111,11 @@ class MathParser {
         $result = $this->prefixOperator();
 
         if ($this->tokeniser->token()->isOf(['_'])) {
-            $container = Tag::make('span','',['class'=>'subscriptContainer']);
+            $container = Tag::make('span', '', ['class' => 'subscriptContainer']);
             $container->addChild($result);
             while ($this->tokeniser->token()->isOf(['_'])) {
                 $this->tokeniser->get();
-                $sub =$container->makeChild('sub','',['class'=>'subscript']);
+                $sub = $container->makeChild('sub', '', ['class' => 'subscript']);
                 $sub->addChild($this->subscript());
             }
             return $container;
@@ -112,17 +125,17 @@ class MathParser {
     }
 
     function superscript(): Tag {
-   
+
         $result = $this->subscript();
 
         if ($this->tokeniser->token()->isOf(['^'])) {
-            $container = Tag::make('span','',['class'=>'superscriptContainer']);
+            $container = Tag::make('span', '', ['class' => 'superscriptContainer']);
             $container->addChild($result);
-            
+
             while ($this->tokeniser->token()->isOf(['^'])) {
-                $class = $this->tokeniser->previousToken()->isOf([')',']','}']) ? 'superscriptAfterBrace' : 'superScript';
+                $class = $this->tokeniser->previousToken()->isOf([')', ']', '}']) ? 'superscriptAfterBrace' : 'superScript';
                 $this->tokeniser->get();
-                $sup = $container->makeChild('sup','',['class'=>$class]);
+                $sup = $container->makeChild('sup', '', ['class' => $class]);
                 $sup->addChild($this->superscript());
             }
             return $container;
@@ -133,20 +146,22 @@ class MathParser {
 
     function divide(): Tag {
 
-        $result = $this->superscript();
+        $numerator = $this->superscript();
 
         if ($this->tokeniser->token()->isOf(['/'])) {
-            $divide = Tag::make('span', '', ['class' => 'divide']);
-            $divide->addChild($result);
-            while ($this->tokeniser->token()->isOf(['/'])) {
-                $divide->makeChild('span', '', ['class' => 'dividingLine']);
-                $this->tokeniser->get();
-                $divide->addChild($this->superscript());
-            }
-            return $divide;
+            $this->tokeniser->get();
+            $denominator = $this->divide();
+
+            $divideContainer = Tag::make('span', '', ['class' => 'divideContainer']);
+            $numeratorContainer = $divideContainer->makeChild('span', '', ['class' => 'numeratorContainer']);
+            $numeratorContainer->addChild($numerator);
+            $numeratorContainer->makeChild('span', '', ['class' => 'dividingLine']);
+            $divideContainer->addChild($denominator);
+
+            return $divideContainer;
         }
 
-        return $result;
+        return $numerator;
     }
 
     function timesDivide(): Tag {
@@ -277,6 +292,8 @@ if (debug) {
 
     $tests = [
         // A. Radicals + superscripts
+        'x^2+1/100 + 1/(1+1/2)',
+        "1 + x + 3 x^2",
         "sqrt (2/{1+2})",
         "c+5+7, d=e=f/2/3",
         "x^2",
@@ -330,7 +347,7 @@ if (debug) {
             //"Let f(x)=x^2 for x>=0; then sqrt(x)^3 grows."
     ];
 
-   //$tests = ['e^x, e^-x, e^(-x)'];
+    //$tests = ['1+1/2+3'];
 
     $page = new Page('MathParser', false);
     foreach ($tests as $expression) {
@@ -340,6 +357,6 @@ if (debug) {
     }
 
 
-    $page->render(false);
+    $page->render();
 }
 

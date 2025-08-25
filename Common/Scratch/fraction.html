@@ -1,0 +1,77 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Minimal baseline relay (inner first → outer last)</title>
+<style>
+    body {
+        font: 20px/1 system-ui, sans-serif;
+        margin: 24px;
+    }
+
+
+    .marker {
+        display:inline;
+        vertical-align: baseline;
+        background:yellow;
+    }
+
+
+    .divideContainer {
+        display: inline-grid;
+        grid-template-columns: auto;
+        row-gap: 0px;
+        grid-template-rows:auto auto auto;
+        place-content: end;
+        align-items: last baseline;
+        vertical-align: baseline;
+        background:lightgreen;
+        vertical-align: baseline;
+    }
+
+
+    .numeratorContainer{
+        display:block;
+        padding:0px;
+        margin:0px;
+        background:yellow;
+    }
+
+    .numerator{
+        display:block;
+        background:white;
+        font-size:2em;
+    }
+
+    .bar{
+        display:block;
+        font-size:8px;
+        background:red;
+        height:5px;
+        padding:0px;
+        margin:0px;
+    }
+
+    .denominator {
+        display:block;
+        font-size:3em;
+        background:lightblue;
+    }
+
+
+
+</style>
+
+<body>
+
+
+    <!-- the outer inline-grid (row 1 label, row 2 inner grid) -->
+    <span class="marker">one + </span>
+    <span class="divideContainer">
+        <span class = "numeratorContainer">
+            <span class="numerator">numerator</span>
+            <span class="bar">_</span>
+        </span>
+        <span class="denominator">denominator</span>
+    </span>
+    <span class="marker"> + four</span>
+
+</body>

@@ -3,15 +3,6 @@
 /* bits and pieces */
 
 
-.dividingLine {
-    justify-self: stretch;
-    display: inline-grid;
-    background: black;
-    height: 0;
-    padding: 1px 5px;       /* thickness via padding; easy to tune */
-    margin: 2px 3px;
-    font-size: 1em;
-}
 
 /* Overbar (vinculum) drawn independent of line-height */
 .vinculum {
@@ -19,8 +10,6 @@
     border-top: 2px solid black;
     padding-top: 2px;         /* headroom so scripts don’t graze the bar */
 }
-
-
 
 
 
@@ -44,7 +33,7 @@
 .superscriptContainer {
     display: inline;
     text-align: center;
-    vertical-align: middle;
+    vertical-align: 0em;
 
     /* canaries */
     border-color: lavenderblush;
@@ -59,12 +48,12 @@
 
 .vinculum .superscript{
     vertical-align: top;
-    font-size:0.7em;
+    font-size:0.6em;
 }
 
 .brace .superscript{
     vertical-align: top;
-    font-size:0.5em;
+    font-size:0.6em;
 }
 
 .superscriptAfterBrace{
@@ -81,6 +70,41 @@
     grid-template-columns:auto auto;
     align-items: stretch;
     vertical-align: middle;
+}
+
+.rangeContainer{
+    display:inline-grid;
+    grid-template-areas:
+        "to   exp"
+        "sym  exp"
+        "from exp";
+    grid-template-columns: auto 1fr;
+
+
+}
+
+.rangeFromExpression{
+    grid-area: from;
+    font-size:0.6em;
+}
+
+.rangeSymbol{
+    grid-area: sym;
+}
+
+.rangeToExpression{
+
+    grid-area: to;
+    font-size:0.6em;
+
+}
+
+.rangeMainExpression{
+    display:inline;
+    grid-area: exp;
+    align-self:center;
+    vertical-align: middle;
+    background:yellow !important;
 
 }
 
@@ -110,8 +134,18 @@
     vertical-align: middle;
     background: transparent;
     margin: 0px;
-    padding: 4px;          /* tiny horizontal breathing room */
+    padding: 3px;          /* tiny horizontal breathing room */
     font-size: inherit;      /* obey container sizing */
+}
+
+.operator{
+    display: inline;
+    text-align: center;
+    vertical-align: middle;
+    background: transparent;
+    margin: 0px;
+    padding: 3px;          /* tiny horizontal breathing room */
+    font-size: inherit; 
 }
 
 
@@ -167,39 +201,133 @@
 {
     display: inline;
     text-align: center;
-    vertical-align: middle;
+    vertical-align: baseline;
     background: transparent;
 
     font-size: 1em;          /* baseline size for contained tokens */
 
 }
 
+/*
+.dividingLine {
+    display: inline-block;
+    border-top-width: 5px;
+    border-top-style:solid;
+    border-top-color:yellow;
+    justify-self: stretch;
+    vertical-align: baseline;
+    background: black;
+    height: 5px;
+    padding: 1px 5px;       /* thickness via padding; easy to tune *//*
+    margin: 2px 3px;
+    font-size: 1em;
+    background:black;
+}
 
-.divide {
+
+.firstDivide {
     display: inline-grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto auto auto; /* num / bar / den */
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
     justify-items: center;
-    vertical-align: middle;
+    justify-self: stretch;
+    
     text-align: center;
     align-content:center;
-    align-items: baseline;
+    align-items: last baseline;
     margin: 0;
     padding: 0px;
     font-size: 1em;
 
-    /* canaries */
+    /* canaries *//*
 
     border-color:  darkblue;
 }
+
+
+.divide {
+    display: inline-grid;
+    grid-template-rows: auto auto; 
+    justify-items: center;
+    vertical-align: bottom;
+    text-align: center;
+    align-content:center;
+    align-items: first baseline;
+    margin: 0;
+    padding: 0px;
+    font-size: 1em;
+
+    /* canaries *//*
+    justify-self: stretch;
+    border-color:  darkblue;
+    background:lightpink;
+}
+
+*/
+
+
+
+
+.divideContainer {
+    display: inline-grid;
+    grid-template-columns: auto;
+    row-gap: 0px;
+    grid-template-rows:auto auto auto;
+    justify-items: center;
+    place-content: end;
+    align-items: last baseline;
+    vertical-align: baseline;
+    align-self: center;
+}
+
+
+.numeratorContainer{
+    display:block;
+    padding:0px;
+    margin:0px;
+    justify-self: stretch;
+}
+
+.numerator{
+    display:block;
+    font-size:2em;
+}
+
+.dividingLine{
+    display:block;
+    background:black;
+    color:transparent;
+    height:2px;
+    padding:0px;
+    margin:0px;
+    justify-self: stretch;
+}
+
+/* creates a glyph-like baseline without any visible character */
+.dividingLine::after {
+  content: "";                    /* required to generate the box */
+  display: inline-block;          /* inline-level => has a baseline */
+  width: 0;                       /* zero width, so it doesn't affect measure */
+  height: var(--baseline-shim, 9px); /* this sets where the baseline sits */
+  user-select: none;
+  pointer-events: none;
+}
+
+.denominator {
+    display:block;
+    text-align:center;
+    font-size:3em;
+    
+}
+
+
 
 
 
 .impliedTimes {
     display: inline;
     text-align: center;
-    vertical-align: middle;
-    background: transparent;
+    vertical-align: baseline;
     margin: 0;
     padding: 0 1px;
     font-size: 1em;
@@ -212,7 +340,7 @@
 .addSubtract
 {
     display: inline;
-    vertical-align: middle;
+    vertical-align: baseline;
     text-align: center;
     background: transparent;
 
@@ -236,6 +364,7 @@
         serif;
 
     line-height: 1;                 /* tighter vertical box */
+    vertical-align: baseline;
 
     /* canaries */
     border-color: red;
@@ -253,14 +382,11 @@
 
     line-height: 1;                 /* tighter vertical box */
     font-variant-numeric: lining-nums;
+    vertical-align: baseline;
 
     /* canaries */
     border-color:  orange;
 }
-
-
-/* START UP THE RECURSIVE DESCENT PARSER AT .expressions */
-
 
 
 

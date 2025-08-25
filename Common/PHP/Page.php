@@ -52,8 +52,8 @@ class Page {
         );
     }
 
-    public function render() {
-        $this->html->render();
+    public function render(bool $prettyPrint = false) {
+        $this->html->render($prettyPrint);
     }
 
 // STATICS
